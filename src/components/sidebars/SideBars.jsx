@@ -1,5 +1,8 @@
 import { usePlaySong } from '../../hooks/usePlaySong'
-import { useSelectState } from '../../hooks/useSelectState'
+import {
+  useSelectArtistState,
+  useSelectState
+} from '../../hooks/useSelectState'
 import { IconList, IconMusicsRandom, IconOptions } from '../../icons/Icons'
 import { ButtonLikeBig } from '../buttons/ButtonLikeBig'
 import { ButtonSpotify } from '../buttons/ButtonSpotify'
@@ -31,13 +34,13 @@ export const SideBarSong = ({
           }
           song={dataSong}
         />
-        <IconMusicsRandom w={26} h={26} />
+        <IconMusicsRandom w={26} h={26} disabled={disabled} />
         {likeOption && (
           <>
             <ButtonLikeBig song={dataSong} />
           </>
         )}
-        <IconOptions w={28} h={28} />
+        <IconOptions w={28} h={28} disabled={disabled} />
       </div>
 
       <div>
@@ -50,7 +53,7 @@ export const SideBarSong = ({
 }
 
 export const SideBararArtists = ({ artist, onClick, follow }) => {
-  const { userLibrary } = useSelectState()
+  const { userLibrary } = useSelectArtistState()
 
   const existInLibrary = userLibrary.find((item) => item.id === artist.id)
 

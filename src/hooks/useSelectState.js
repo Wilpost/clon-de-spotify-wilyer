@@ -13,27 +13,11 @@ export const useSelectState = () => {
   const newSongHearRecent = storeConfig((state) => state.newSongHearRecent)
   const recentHeardSongs = storeConfig((state) => state.recentHeardSongs)
 
-  const addSongToListCreated = storeConfig(
-    (state) => state.addSongToListCreated
-  )
-
-  const updatePlaylistCreated = storeConfig(
-    (state) => state.updatePlaylistCreated
-  )
-
   const setViewModals = storeConfig((state) => state.setViewModals)
   const viewModals = storeConfig((state) => state.viewModals)
 
   const scroll = storeConfig((state) => state.scroll)
   const setScroll = storeConfig((state) => state.setScroll)
-
-  const userLibrary = storeConfig((state) => state.userLibrary)
-  const addToLibrary = storeConfig((state) => state.addToLibrary)
-
-  const addNewPlaylistCreated = storeConfig(
-    (state) => state.addNewPlaylistCreated
-  )
-  const userPlaylistCreated = storeConfig((state) => state.userPlaylistCreated)
 
   const favList = storeConfig((state) => state.favList)
   const setFavList = storeConfig((state) => state.setFavList)
@@ -51,19 +35,13 @@ export const useSelectState = () => {
   const setDeployNavbar = storeConfig((state) => state.setDeployNavbar)
 
   return {
-    userLibrary,
-    addToLibrary,
-    addSongToListCreated,
     newSongHearRecent,
     deployNavbar,
     recentHeardSongs,
     hearSongRecent,
     setDeployNavbar,
-    updatePlaylistCreated,
     viewModals,
     setViewModals,
-    addNewPlaylistCreated,
-    userPlaylistCreated,
     setAudioState,
     audioState,
     setFavList,
@@ -87,6 +65,23 @@ export const useSelectArtistState = () => {
   const songSelect = useDataArtists((state) => state?.songSelect)
   const artistId = useDataArtists((state) => state?.artistId)
 
+  const userLibrary = useDataArtists((state) => state.userLibrary)
+  const addToLibrary = useDataArtists((state) => state.addToLibrary)
+
+  const addNewPlaylistCreated = useDataArtists(
+    (state) => state.addNewPlaylistCreated
+  )
+  const userPlaylistCreated = useDataArtists(
+    (state) => state.userPlaylistCreated
+  )
+  const addSongToListCreated = useDataArtists(
+    (state) => state.addSongToListCreated
+  )
+
+  const updatePlaylistCreated = useDataArtists(
+    (state) => state.updatePlaylistCreated
+  )
+
   const playPauseBar = useDataArtists((state) => state?.playPauseBar)
 
   const likeSongsList = useDataArtists((state) => state.likeSongsList)
@@ -103,6 +98,12 @@ export const useSelectArtistState = () => {
   const addGenre = useDataArtists((state) => state?.addGenre)
 
   return {
+    userLibrary,
+    addToLibrary,
+    updatePlaylistCreated,
+    addSongToListCreated,
+    userPlaylistCreated,
+    addNewPlaylistCreated,
     playPauseBar,
     likeSongsList,
     addLikeSong,

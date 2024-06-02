@@ -9,13 +9,12 @@ import { useEffect } from 'react'
 
 const ArtistPage = () => {
   const { artistId } = useParams()
-  const { addToLibrary, scroll, setScroll } = useSelectState()
-  const { artists } = useSelectArtistState()
+  const { scroll, setScroll } = useSelectState()
+  const { artists, addToLibrary } = useSelectArtistState()
   const { audioControl } = usePlaySong()
   const { artist, existSongInPlaylist } = useArtistFunciton(artistId)
 
   const handleFollowClick = () => {
-    // setFollow(userLibrary.some((item) => item.id === artist.id))
     setScroll(scroll - 1)
     addToLibrary(artist)
   }

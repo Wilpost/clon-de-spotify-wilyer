@@ -72,7 +72,7 @@ export const InfoReproSong = () => {
         </span>
       </div>
 
-      <ButtonLikeMedium song={songSelect.song} />
+      {songSelect?.song?.name && <ButtonLikeMedium song={songSelect.song} />}
     </div>
   )
 }

@@ -1,8 +1,12 @@
-import { useSelectState } from '../../hooks/useSelectState'
+import {
+  useSelectArtistState,
+  useSelectState
+} from '../../hooks/useSelectState'
 import { IconAddMyPlaylist, IconAddedToMyPlaylist } from '../../icons/Icons'
 
 export const ButtonLikeBig = ({ song }) => {
-  const { userLibrary, addToLibrary, setScroll, scroll } = useSelectState()
+  const { setScroll, scroll } = useSelectState()
+  const { userLibrary, addToLibrary } = useSelectArtistState()
 
   const existSong = userLibrary.some((item) => item.id === song.id)
 

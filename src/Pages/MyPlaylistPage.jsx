@@ -5,7 +5,7 @@ import { TableListSongs } from '../components/Table'
 import { SideBarSong } from '../components/sidebars/SideBars'
 
 const MyPlaylistPage = () => {
-  const { likeSongsList = [] } = useSelectArtistState()
+  const { likeSongsList } = useSelectArtistState()
   const { setBackdropColor } = useSelectState()
 
   useEffect(() => {

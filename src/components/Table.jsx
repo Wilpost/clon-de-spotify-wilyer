@@ -106,14 +106,14 @@ export const TableListSongs = ({ album = [], albumId, type }) => {
                           song?.hear ? 'text-textGreenSpotify' : 'text-white'
                         } w-full `}
                       >
-                        {song?.name.length > 40
-                          ? `${song?.name.slice(0, 40)}...`
-                          : song?.name.slice(0, 40)}
+                        {song?.name?.length > 40
+                          ? `${song?.name?.slice(0, 40)}...`
+                          : song?.name?.slice(0, 40)}
                       </span>
                       <small className='text-textGray flex gap-1 w-full'>
-                        {song?.album.artists.map((artist, i) => {
+                        {song?.album?.artists?.map((artist, i) => {
                           if (
-                            song?.album.artists[i + 1] === undefined &&
+                            song?.album?.artists[i + 1] === undefined &&
                             i <= 3
                           ) {
                             return (
@@ -134,10 +134,10 @@ export const TableListSongs = ({ album = [], albumId, type }) => {
                 </div>
 
                 <span className='text-sm text-textGray w-[318px]'>
-                  {song?.album.name}
+                  {song?.album?.name}
                 </span>
                 <span className='mr-8 -ml-9 w-8 invisible group-hover:visible'>
-                  {existSongInPlaylist(song.id) && <IconAddedToMyPlaylist />}
+                  {existSongInPlaylist(song?.id) && <IconAddedToMyPlaylist />}
                 </span>
                 <span className='text-textGray'>1:03</span>
               </div>

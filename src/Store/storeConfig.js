@@ -20,7 +20,27 @@ export const useDataArtists = create(
         type_album: '',
         color: ''
       },
+      userPlaylistCreated: [],
+      userLibrary: [],
 
+      addToLibrary: (data) => {
+        set((state) => {
+          const artistsExistInList = state.userLibrary.some(
+            (item) => item.id === data.id
+          )
+
+          if (artistsExistInList) {
+            const idx = state.userLibrary.findIndex((art) => art.id === data.id)
+            state.userLibrary.splice(idx, 1)
+
+            return { userLibrary: state.userLibrary }
+          }
+
+          state.userLibrary.push(data)
+
+          return { userLibrary: state.userLibrary }
+        })
+      },
       addLikeSong: (songData) => {
         songData.hear = false
         set((state) => {
@@ -49,6 +69,71 @@ export const useDataArtists = create(
               hear: state.likeSongsList.hear,
               items: state.likeSongsList.items
             }
+          }
+        })
+      },
+      updatePlaylistCreated: (id, data) => {
+        set((state) => {
+          const indexPlaylist = state.userPlaylistCreated.findIndex(
+            (item) => item.id === id
+          )
+
+          const playlistUpdate = {
+            id,
+            ...data,
+            songs: state.userLibrary[indexPlaylist].songs,
+            type: 'userPlaylist'
+          }
+
+          state.userPlaylistCreated.splice(indexPlaylist, 1, playlistUpdate)
+          state.userLibrary.splice(indexPlaylist, 1, playlistUpdate)
+
+          return {
+            userPlaylistCreated: state.userPlaylistCreated,
+            userLibrary: state.userLibrary
+          }
+        })
+      },
+      addNewPlaylistCreated: () => {
+        set((state) => {
+          const created = {
+            id: crypto.randomUUID(),
+            title: `Mi lista n.º${state.userPlaylistCreated.length + 1}`,
+            type: 'userPlaylist',
+            image: null,
+            songs: [],
+            hear: false
+          }
+
+          const newPlaylist = [...state.userPlaylistCreated, created]
+          state.userLibrary.push(created)
+
+          return {
+            userPlaylistCreated: newPlaylist,
+            userLibrary: state.userLibrary
+          }
+        })
+      },
+      addSongToListCreated: (newUserPlaylistCreated) => {
+        set((state) => {
+          const userFollows = state.userLibrary.filter(
+            (item) => item.type === 'artist'
+          )
+
+          const playlistsCreateds = newUserPlaylistCreated.map((pl) => {
+            if (pl.songs.length === 0) {
+              pl.image = null
+              return pl
+            } else {
+              return pl
+            }
+          })
+
+          const newDataLibrary = [...userFollows, ...playlistsCreateds]
+
+          return {
+            userPlaylistCreated: newUserPlaylistCreated,
+            userLibrary: newDataLibrary
           }
         })
       },
@@ -182,6 +267,50 @@ export const useDataArtists = create(
               }
             }
           }
+
+          if (type === 'myPlaylistCreated') {
+            const newDataLikedsSongs = state.userPlaylistCreated.map(
+              (playlist) => {
+                if (playlist.id === listId) {
+                  playlist.songs.map((track) => {
+                    if (track.id === idSong) {
+                      track.hear = value
+                      newData.song = track
+                      newData.beat = track?.preview_url
+                      return track
+                    }
+
+                    track.hear = false
+                    return track
+                  })
+
+                  playlist.hear = value
+                  return playlist
+                }
+
+                playlist.songs.map((track) => {
+                  track.hear = false
+                  return track
+                })
+
+                playlist.hear = false
+                return playlist
+              }
+            )
+
+            newData.list = newDataLikedsSongs
+
+            return {
+              userPlaylistCreated: newDataLikedsSongs,
+              songSelect: {
+                type_album: type,
+                song: newData.song,
+                beat: newData.beat,
+                list: newData.list,
+                albumId: listId
+              }
+            }
+          }
         })
       }
     }),
@@ -214,27 +343,7 @@ export const storeConfig = create(
       currentSection: null,
       songState: false,
       favList: [],
-      userPlaylistCreated: [],
-      userLibrary: [],
 
-      addToLibrary: (data) => {
-        set((state) => {
-          const artistsExistInList = state.userLibrary.some(
-            (item) => item.id === data.id
-          )
-
-          if (artistsExistInList) {
-            const idx = state.userLibrary.findIndex((art) => art.id === data.id)
-            state.userLibrary.splice(idx, 1)
-
-            return { userLibrary: state.userLibrary }
-          }
-
-          state.userLibrary.push(data)
-
-          return { userLibrary: state.userLibrary }
-        })
-      },
       hearSongRecent: (id, value) => {
         set((state) => {
           const modifiedData = state.recentHeardSongs.map((item) => {
@@ -293,70 +402,6 @@ export const storeConfig = create(
       },
       setDeployNavbar: (value) => {
         set({ deployNavbar: value })
-      },
-      updatePlaylistCreated: (id, data) => {
-        set((state) => {
-          const indexPlaylist = state.userPlaylistCreated.findIndex(
-            (item) => item.id === id
-          )
-
-          const playlistUpdate = {
-            id,
-            ...data,
-            songs: state.userLibrary[indexPlaylist].songs,
-            type: 'userPlaylist'
-          }
-
-          state.userPlaylistCreated.splice(indexPlaylist, 1, playlistUpdate)
-          state.userLibrary.splice(indexPlaylist, 1, playlistUpdate)
-
-          return {
-            userPlaylistCreated: state.userPlaylistCreated,
-            userLibrary: state.userLibrary
-          }
-        })
-      },
-      addNewPlaylistCreated: () => {
-        set((state) => {
-          const created = {
-            id: crypto.randomUUID(),
-            title: `Mi lista n.º${state.userPlaylistCreated.length + 1}`,
-            type: 'userPlaylist',
-            image: null,
-            songs: []
-          }
-
-          const newPlaylist = [...state.userPlaylistCreated, created]
-          state.userLibrary.push(created)
-
-          return {
-            userPlaylistCreated: newPlaylist,
-            userLibrary: state.userLibrary
-          }
-        })
-      },
-      addSongToListCreated: (newUserPlaylistCreated) => {
-        set((state) => {
-          const userFollows = state.userLibrary.filter(
-            (item) => item.type === 'artist'
-          )
-
-          const playlistsCreateds = newUserPlaylistCreated.map((pl) => {
-            if (pl.songs.length === 0) {
-              pl.image = null
-              return pl
-            } else {
-              return pl
-            }
-          })
-
-          const newDataLibrary = [...userFollows, ...playlistsCreateds]
-
-          return {
-            userPlaylistCreated: newUserPlaylistCreated,
-            userLibrary: newDataLibrary
-          }
-        })
       },
       addFavSong: (favSong) => {
         set((state) => ({

@@ -1,7 +1,7 @@
 import { TableListSongs } from '../components/Table'
 import { CreatePlaylistModal } from '../components/modals/CreatePlaylistModal'
 import { SideBarSong } from '../components/sidebars/SideBars'
-import { useSelectState } from '../hooks/useSelectState'
+import { useSelectArtistState, useSelectState } from '../hooks/useSelectState'
 import { SongIcon } from '../icons/Icons'
 import { useLocation, useParams } from 'react-router'
 import { fetchImageColor } from '../libs/get_image_color'
@@ -10,9 +10,9 @@ import { useEffect, useState } from 'react'
 export const PlaylistPage = () => {
   const { pathname } = useLocation()
   const { viewModals, setViewModals, setBackdropColor } = useSelectState()
+  const { userPlaylistCreated, updatePlaylistCreated } = useSelectArtistState()
   const [color, setColor] = useState('')
 
-  const { userPlaylistCreated } = useSelectState()
   const { id } = useParams()
 
   const songFound = userPlaylistCreated.find((playlist) => playlist.id === id)
@@ -22,7 +22,12 @@ export const PlaylistPage = () => {
       (!songFound?.image && songFound.songs[0]) ||
       (songFound?.image && songFound.songs[0])
     ) {
-      songFound.image = songFound.songs[0].album.images[0].url
+      updatePlaylistCreated(songFound.id, {
+        title: songFound.title,
+        image: songFound.songs[0].album.images[0].url,
+        hear: songFound.hear
+      })
+      // songFound.image = songFound.songs[0].album.images[0].url
       fetchImageColor(songFound.songs[0].album.images[0].url).then((hex) =>
         setColor(hex)
       )
@@ -71,6 +76,7 @@ export const PlaylistPage = () => {
             <SongIcon w={90} h={90} />
           </figure>
         )}
+
         <article className='flex flex-col w-full h-full justify-end'>
           <div className='w-full flex flex-col gap-2'>
             <span className='text-md -mb-5'>Playlist</span>
@@ -106,6 +112,11 @@ export const PlaylistPage = () => {
         }`}
       >
         <SideBarSong
+          dataSong={songFound}
+          albumId={songFound.id}
+          albums={userPlaylistCreated}
+          list={songFound.songs}
+          type='myPlaylistCreated'
           likeOption={false}
           disabled={songFound?.songs?.length === 0}
         />

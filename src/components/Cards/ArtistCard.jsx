@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom'
 import { usePlaySong } from '../../hooks/usePlaySong'
-import { useSelectArtistState } from '../../hooks/useSelectState'
+import {
+  useSelectArtistState,
+  useSelectState
+} from '../../hooks/useSelectState'
 import { ButtonSpotify } from '../buttons/ButtonSpotify'
 
 export const CardArtist = ({ song }) => {
   const { artists } = useSelectArtistState()
+  const { deployNavbar } = useSelectState()
   const { audioControl } = usePlaySong()
 
   const handleClick = async () => {
@@ -17,7 +21,11 @@ export const CardArtist = ({ song }) => {
   }
 
   return (
-    <article className={`w-[202px] h-[272px] relative overflow-hidden group`}>
+    <article
+      className={`${
+        deployNavbar ? 'w-[205px]' : 'w-[202px]'
+      } h-[272px] relative overflow-hidden group`}
+    >
       <Link
         to={`artist/${song?.data?.id ?? song?.id}`}
         className='peer z-70 w-full h-full '

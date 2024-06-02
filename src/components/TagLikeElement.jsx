@@ -6,6 +6,8 @@ const TagLikeElement = ({ imageUrl, name, type, fixed = false, url }) => {
   const { pathname } = useLocation()
   const { deployNavbar } = useSelectState()
 
+  console.log(imageUrl, name)
+
   return (
     <Link
       onContextMenu={(e) => {
@@ -27,7 +29,7 @@ const TagLikeElement = ({ imageUrl, name, type, fixed = false, url }) => {
           } relative overflow-hidden`}
         >
           <img
-            className='object-contain w-full h-full rounded-lg'
+            className='object-cover w-full h-full rounded-lg'
             src={imageUrl}
             alt='Flyer from the album'
           />

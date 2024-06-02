@@ -11,9 +11,9 @@ import TagLikeElement from './TagLikeElement'
 import { LikeListSkeleton } from './skeletons/Skeletons'
 
 export const SectionMyListPlayList = ({ loading }) => {
-  const { deployNavbar, setDeployNavbar, addNewPlaylistCreated, userLibrary } =
-    useSelectState()
-  const { likeSongsList } = useSelectArtistState()
+  const { deployNavbar, setDeployNavbar } = useSelectState()
+  const { likeSongsList, addNewPlaylistCreated, userLibrary } =
+    useSelectArtistState()
 
   return (
     <article className='group w-full rounded-lg bg-groundColor flex flex-col gap-2 p-2 h-full '>

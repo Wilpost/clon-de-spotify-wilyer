@@ -13,8 +13,8 @@ import {
 import { Input } from '../inputs/Input'
 
 export const CreatePlaylistModal = ({ id }) => {
-  const { setViewModals, userPlaylistCreated, updatePlaylistCreated } =
-    useSelectState()
+  const { setViewModals } = useSelectState()
+  const { userPlaylistCreated, updatePlaylistCreated } = useSelectArtistState()
   const {
     title,
     image,
@@ -83,20 +83,20 @@ export const CreatePlaylistModal = ({ id }) => {
           <div className='flex w-full h-full items-center gap-3 justify-between'>
             <div className='group h-full mb-6 w-[40%] flex items-center justify-center'>
               <figure className='relative overflow-hidden w-[200px] h-[180px] bg-secondaryDark rounded-md flex items-center justify-center shadow-4xl'>
-                {!image && !imagePlaylist.current?.src && (
+                {!image && !imagePlaylist.current?.src && !urlImage && (
                   <div className='group-hover:hidden block opacity-60'>
                     <SongIcon w={60} h={60} />
                   </div>
                 )}
 
-                <img
-                  ref={imagePlaylist}
-                  src={image && image}
-                  className={`${
-                    urlImage !== '' || image ? 'block' : 'hidden'
-                  } object-contain w-full h-full`}
-                  alt='Playlist photo'
-                />
+                {urlImage && (
+                  <img
+                    ref={imagePlaylist}
+                    src={urlImage}
+                    className={`object-contain w-full h-full`}
+                    alt='Playlist photo'
+                  />
+                )}
 
                 <input
                   onChange={(e) => changePhoto(e)}
@@ -189,14 +189,14 @@ export const CreatePlaylistModal = ({ id }) => {
 
 export const ContextMenuOptions = ({ song }) => {
   const [existCurrentShanges, setExistShanges] = useState(false)
-  const {
-    addNewPlaylistCreated,
-    setViewModals,
-    addSongToListCreated,
-    userPlaylistCreated
-  } = useSelectState()
+  const { addNewPlaylistCreated, setViewModals } = useSelectState()
 
-  const { likeSongsList, addLikeSong } = useSelectArtistState()
+  const {
+    likeSongsList,
+    addLikeSong,
+    userPlaylistCreated,
+    addSongToListCreated
+  } = useSelectArtistState()
   const [newStatePlaylist, setNewStatePlaylist] = useState(userPlaylistCreated)
   const { existSong } = useLikeSongsFunctions(likeSongsList, song)
   const opt = useRef(userPlaylistCreated)
