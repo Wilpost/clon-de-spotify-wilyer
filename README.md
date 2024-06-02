@@ -1,19 +1,20 @@
-# React + Vite
+<h1 align="center">
+   Clon de Spotify
+</h1>
+<p align="center">
+   Este es un clon de Spotify donde se utilizo la API de Spotify para acceder a las playlist y albunes de un usuario real de Spotify 
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<picture>
+     <img alt="Imagen de la interfar de la web" src="https://i.ibb.co/MkVk4sx/Pecture.png">
+</picture>
 
-Currently, two official plugins are available:
+<h2>
+   Características principales
+</h2>
 
-[] Al añadir una música a una lista se añade a la lista de la libreria
-
-En la primera carga obtener los datos, luego que se alamacenen los datos, acceder desde localStorage para no tener que hacer multiples e inncesaras requests, amenos que sean datos nuevos
-
-# Posibles Soluciones para manipular la etiqueta audio
-
-- .1 Hacerla una etiqueta gobal en un nivel superior donde se puedo acceder desde cualquier archivo mendiante props
-- .2 Duplicar la etiqueta, para que aparesca en el footer y en la pagina de songPage
-- .3 Agregar a un estado el elemento HTML considerando los problemas que se obtendrán al guardar en localStorage el estado  
-   ya que se debe tranformar a un string, y al obtener el valor del estado el resultado seria [Object Undefined], entonces tendria que investigar si existe una manera de transformar un string a formato HTML...
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Reproducción de música
+- Creación de listas de reproducción
+- Puedes añadirle canciones a tus listas de reproducción creadas
+- Añadir canciones a tus lista de (me gusta)
+- Visualiza canciones, playlists o artista que has escuchado recientemente
