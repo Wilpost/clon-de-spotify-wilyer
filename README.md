@@ -18,3 +18,4 @@
 - Puedes añadirle canciones a tus listas de reproducción creadas
 - Añadir canciones a tus lista de (me gusta)
 - Visualiza canciones, playlists o artista que has escuchado recientemente
+- Añadir a tu biblioteca playlist, albunes, artistas etc...
