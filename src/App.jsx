@@ -2,40 +2,21 @@ import './index.css'
 import { Navbar } from './components/Navbar'
 import { HeaderListPlaylist } from './components/HeaderListPlaylis'
 import { SectionMyListPlayList } from './components/SectionMyPlayList'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { Paths } from './Routing/roots'
 import { useFetchSongData } from './hooks/useFetchQuery'
 import { useSelectArtistState, useSelectState } from './hooks/useSelectState'
-import {
-  getAllAlbumsRecommended,
-  getAllArtistsData
-} from './libs/Firebase/firestore'
 import { SectionHomeSkeleton } from './components/skeletons/Skeletons'
 import { NotificationBanner } from './components/modals/CreatePlaylistModal'
 import { Footer } from './components/Footer/Player'
+import { useAppHooks } from './hooks/useApp_Functions_Hooks'
 
 const App = () => {
-  const [loading, setLoading] = useState(false)
   const mainSerctionRef = useRef()
 
   const { deployNavbar, setBackdropColor, viewModals } = useSelectState()
-  const { songSelect, addAlbum, addArtistToList, albums, artists } =
-    useSelectArtistState()
-
-  async function fetchDataRequest() {
-    try {
-      setLoading(true)
-      const artists2 = await getAllArtistsData()
-      const albums2 = await getAllAlbumsRecommended()
-
-      addArtistToList(artists2)
-      addAlbum(albums2)
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const { songSelect, albums, artists } = useSelectArtistState()
+  const { fetchDataRequest, loading } = useAppHooks()
 
   useEffect(() => {
     if (albums.length === 0 || artists.length === 0) {

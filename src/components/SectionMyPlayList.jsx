@@ -106,7 +106,9 @@ export const SectionMyListPlayList = ({ loading }) => {
                     item.id
                   }`}
                   imageUrl={
-                    item.type === 'artist' ? item?.images[0]?.url : item.image
+                    item.type === 'artist' || item.type === 'playlist'
+                      ? item?.images[0]?.url
+                      : item.image
                   }
                   name={item.name ?? item.title}
                   type={item.type}

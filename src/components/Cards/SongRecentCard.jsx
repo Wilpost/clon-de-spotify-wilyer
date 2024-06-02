@@ -9,17 +9,27 @@ import { IconPause, IconPlay } from '../../icons/Icons'
 export const CardSongRecent = ({ song }) => {
   const { likeSongsList, albums } = useSelectArtistState()
   const { audioControl } = usePlaySong()
-  const { setBackdropColor } = useSelectState()
+  const { setBackdropColor, deployNavbar } = useSelectState()
 
   const handleHover = () => {
     setBackdropColor(song.data.primary_color)
   }
 
+  // '/collection/tracks'
+
   return (
-    <div className={`h-12 group w-full relative overflow-hidden z-[77777]`}>
+    <div
+      className={`${
+        deployNavbar ? 'h-16' : 'h-12'
+      } group w-full relative overflow-hidden z-[77777]`}
+    >
       <Link
         className='h-full'
-        to={`/${song.type === 'artist' ? 'artist' : 'song'}/${song.data?.id}`}
+        to={`${
+          song.type === 'myPlaylist'
+            ? '/collection/tracks'
+            : `${song.type === 'artist' ? 'artist' : 'song'}/${song.data?.id}`
+        }`}
       >
         <article
           onMouseMove={() => handleHover()}
@@ -30,10 +40,12 @@ export const CardSongRecent = ({ song }) => {
             <div className='flex items-center h-full gap-2 w-full'>
               <picture className={`w-14 shadow-rigth h-20`}>
                 <img
-                  className='object-contain w-full h-full'
+                  className={`${
+                    deployNavbar ? 'object-cover' : 'object-contain'
+                  } w-full h-full`}
                   src={
                     song.albumId === 'likedPlaylist'
-                      ? 'https://misc.scdn.co/liked-songs/liked-songs-300.png'
+                      ? 'public/images/liked-song-image-big.png'
                       : song.data.images[0].url
                   }
                   alt='Flyer from the album'
@@ -71,7 +83,7 @@ export const CardSongRecent = ({ song }) => {
               albums: song?.albumId === 'likedPlaylist' ? albums : likeSongsList
             })
           }
-          className='bg-[#571ed7] z-70 scale-105 hover:scale-110 active:scale-95 p-3 w-[33px] h-[33px] grid place-content-center rounded-full'
+          className='bg-textGreenSpotify z-70 scale-105 hover:scale-110 active:scale-95 p-3 w-[33px] h-[33px] grid place-content-center rounded-full'
         >
           {song?.hear && <IconPause w={15} h={15} />}
           {!song?.hear && <IconPlay w={15} h={15} />}

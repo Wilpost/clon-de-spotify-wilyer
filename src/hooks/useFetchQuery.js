@@ -27,34 +27,11 @@ export const useFetchArtistTopTracks = ({ fn, key }) => {
   }
 }
 
-export const useFetchQuery = ({ fn, key }) => {
-  const {
-    isLoading,
-    isFetching,
-    data = []
-  } = useQuery({
-    queryKey: [key],
-    queryFn: fn,
-    staleTime: 1000 * 60 * 7
-  })
-
-  return {
-    isLoading,
-    isFetching,
-    data
-  }
-}
-
 export const useFetchSongData = (mainSerctionRef) => {
   const location = useLocation()
   const [isFetching, setIsFecthing] = useState(true)
   const { setBackdropColor, scroll, setScroll } = useSelectState()
-  const { addArtistToList, addAlbum, songSelect, albums, artists } =
-    useSelectArtistState()
-
-  // function addDataToStateAndDb(data) {
-  //   addAlbum(data)
-  // }
+  const { addArtistToList, songSelect, artists } = useSelectArtistState()
 
   useEffect(() => {
     const updateScroll = (e) => {

@@ -15,11 +15,11 @@ export default {
         variable: ['Overpass Variable', 'system-ui']
       },
       gridTemplateRows: {
-        rowsGrid: 'repeat(2, minmax(8px, 49px))'
+        rowsGrid: 'repeat(2, minmax(8px, 55px))'
       },
       gridTemplateColumns: {
         tableGrid: '26px repeat(auto-fit, minmax(100px, 1fr))',
-        recentCardsGrid: 'repeat(4, minmax(100px, 245px))',
+        recentCardsGrid: 'repeat(4, minmax(100px, 345px))',
         gridSectionTrend: 'repeat(auto-fit, minmax(100px, auto))'
       },
       colors: {

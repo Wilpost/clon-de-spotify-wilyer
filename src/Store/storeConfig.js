@@ -249,8 +249,6 @@ export const storeConfig = create(
 
       addToLibrary: (data) => {
         set((state) => {
-          console.log('update ', data)
-
           const artistsExistInList = state.userLibrary.some(
             (item) => item.id === data.id
           )
@@ -453,36 +451,9 @@ export const storeConfig = create(
       partialize: (state) =>
         Object.fromEntries(
           Object.entries(state).filter(
-            ([key]) => !['songState', 'viewModals'].includes(key)
+            ([key]) => !['songState', 'viewModals', 'scroll'].includes(key)
           )
         )
-    }
-  )
-)
-
-export const albumsState = create(
-  persist(
-    (set) => ({
-      albumItemList: [],
-      addItemToList: (item) => {
-        set(() => {
-          const newData = item.map((item) => {
-            item.hear = false
-            return item
-          })
-
-          return { albumItemList: newData }
-        })
-      }
-    }),
-    {
-      name: 'albums_state'
-      // partialize: (state) =>
-      //   Object.fromEntries(
-      //     Object.entries(state).filter(
-      //       ([key]) => !['songState', 'viewModals'].includes(key)
-      //     )
-      //   )
     }
   )
 )

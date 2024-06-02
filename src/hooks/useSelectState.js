@@ -1,4 +1,4 @@
-import { storeConfig, useDataArtists, albumsState } from '../Store/storeConfig'
+import { storeConfig, useDataArtists } from '../Store/storeConfig'
 
 export const useSelectState = () => {
   const currentTime = storeConfig((state) => state.currentTime)
@@ -115,11 +115,4 @@ export const useSelectArtistState = () => {
     genres,
     addGenre
   }
-}
-
-export const useSelectAlbumState = () => {
-  const albumItemList = albumsState((state) => state.albumItemList)
-  const addItemToList = albumsState((state) => state.addItemToList)
-
-  return { albumItemList, addItemToList }
 }

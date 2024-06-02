@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useLikeSongsFunctions } from '../../hooks/useLikeSongsFunctions'
 import {
   useSelectArtistState,
@@ -19,27 +19,6 @@ export const ButtonLikeMedium = ({ song }) => {
   const clickViewModal = () => {
     setViewModals({ addSongToList: !viewModals.addSongToList })
   }
-
-  // useEffect(() => {
-  //   document.addEventListener('click', (e) => {
-  //     console.log(
-  //       e.target.parentElement.parentElement.parentElement,
-  //       buttonElement.current
-  //     )
-
-  //     if (
-  //       e.target.parentElement.parentElement.parentElement !==
-  //         buttonElement.current &&
-  //       viewModals.addSongToList
-  //     ) {
-  //       return setViewModals({ addSongToList: false })
-  //     } else {
-  //       setViewModals({ addSongToList: !viewModals.addSongToList })
-  //     }
-  //   })
-
-  //   return () => document.removeEventListener('click', () => {})
-  // }, [])
 
   return (
     <>

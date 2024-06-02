@@ -29,7 +29,7 @@ const Home = () => {
         <header
           className={`${
             deployNavbar ? 'gap-[10px]' : 'gap-[6px]'
-          } pl-7 p-4 w-full grid grid-cols-recentCardsGrid grid-rows-rowsGrid`}
+          } pl-7 p-4 w-full grid grid-cols-recentCardsGrid grid-rows-[repeat(2, minmax(8px, 50px))]`}
         >
           <ListPlaylist />
         </header>

@@ -122,8 +122,8 @@ const CardSkeleton = () => {
   return (
     <article
       className={`${
-        deployNavbar ? 'w-[202px] h-[272px]' : 'w-[180px] h-[240px]'
-      } relative overflow-hidden group`}
+        deployNavbar ? 'w-[206px]' : 'w-[198px]'
+      } relative overflow-hidden group h-[272px]`}
     >
       <div className='peer z-70 w-full h-full rounded-md'>
         <article className='peer overflow-hidden w-full h-full max-w-96 relative shadow-3xl bg-[#181818] pb-4 p-2 flex flex-col items-center justify-center gap-5 rounded-lg'>
@@ -148,6 +148,7 @@ const CardSkeleton = () => {
 }
 
 const SectionHomeSkeleton = () => {
+  const { deployNavbar } = useSelectState()
   return (
     <>
       <div
@@ -158,7 +159,7 @@ const SectionHomeSkeleton = () => {
       />
 
       <header className='pl-4 mb-8 p-4 grid grid-cols-recentCardsGrid gap-2'>
-        {Array(4)
+        {Array(deployNavbar ? 8 : 4)
           .fill('')
           .map((song) => {
             return <CardRecentkeleton key={song.id} />
@@ -170,8 +171,8 @@ const SectionHomeSkeleton = () => {
             <div className='h-full w-16 blur-xl animate-skeleton bg-cardGroundSkeleton absolute' />
           </div>
         </nav>
-        <section className='w-full pl-3 grid gap-1 grid-cols-gridSectionTrend'>
-          {Array(4)
+        <section className='w-full pl-3 grid gap-2 grid-cols-gridSectionTrend'>
+          {Array(deployNavbar ? 6 : 4)
             .fill('')
             .map((song) => {
               return <CardSkeleton key={song.id} />
@@ -186,7 +187,7 @@ const SectionHomeSkeleton = () => {
           </div>
         </nav>
         <section className='w-full pl-3 grid gap-1 grid-cols-gridSectionTrend'>
-          {Array(4)
+          {Array(deployNavbar ? 6 : 4)
             .fill('')
             .map((song) => {
               return <CardSkeleton key={song.id} />
