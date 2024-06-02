@@ -23,14 +23,9 @@ export async function addAlbumToAlbumCollection({ album = {} }) {
   }
 
   try {
-    const asyncData = await setDoc(
-      doc(db, 'user_albums_recommended', album.id),
-      {
-        album
-      }
-    )
-
-    console.log('DocRef data in the App collection >>> ', asyncData)
+    await setDoc(doc(db, 'user_albums_recommended', album.id), {
+      album
+    })
   } catch (error) {
     console.error(error)
   }
@@ -57,7 +52,6 @@ export async function getAllArtistsData() {
     const artists = []
 
     querySnapshot.forEach((doc) => {
-      // console.log('artists data ', doc.data())
       artists.push(doc.data().artist)
     })
 
@@ -107,15 +101,13 @@ export async function addDataToCollection({
   userLikeSongs = []
 }) {
   try {
-    const asyncData = await addDoc(collection(db, 'data_user_collection'), {
+    await addDoc(collection(db, 'data_user_collection'), {
       recentHeartSongs,
       userLibrary,
       userPlaylistsCreated,
       userLikeSongs
     })
-
-    console.log('DocRef data in the user collection >>> ', asyncData)
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }

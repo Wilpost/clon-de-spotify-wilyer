@@ -97,8 +97,6 @@ export const SectionMyListPlayList = ({ loading }) => {
           {!loading &&
             userLibrary.length > 0 &&
             userLibrary.map((item) => {
-              console.log(item?.image)
-
               return (
                 <TagLikeElement
                   key={item.id}

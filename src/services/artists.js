@@ -67,7 +67,6 @@ export const getArtistTopTracks = async (artId) => {
         return track
       })
 
-      console.log('artistTopTracksModified ', artistTopTracksModified)
       return artistTopTracksModified
     }
   } catch (error) {

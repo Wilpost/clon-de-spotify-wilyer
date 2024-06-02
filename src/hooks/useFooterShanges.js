@@ -13,7 +13,6 @@ export const useFooterShanges = () => {
     if (action === 'NEXT') {
       const songFound = songSelect.list[index + 1]
 
-      console.log('songFound', songFound, 'songSelect > ', songSelect.song)
       if (songFound) {
         audioControl({
           albumId: songSelect?.albumId,

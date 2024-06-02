@@ -11,7 +11,7 @@ export function usePlayerActions(audioRef) {
     setCurrentTime(parseInt(e.target.currentTime))
 
     if (currentTimeParser === 29) {
-      console.log('listo')
+      // e.target.currentTime = 0
       setSongState(true)
       shangeSongHear('NEXT')
     }

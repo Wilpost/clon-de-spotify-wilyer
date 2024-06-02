@@ -67,7 +67,6 @@ export const useFetchSongData = (mainSerctionRef) => {
 
     artistsIds.map(async (artId) => {
       const artDataRequest = await getArtists(artId)
-      console.log('artDataRequest ', artDataRequest)
       addArtistToCollection({ artist: artDataRequest })
     })
 

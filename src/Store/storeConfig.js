@@ -55,45 +55,11 @@ export const useDataArtists = create(
 
       addArtistToList: (artData) => {
         set(() => {
-          // const isAlredyExistAlbum = state.artists?.some(
-          //   (item, i) => item.id === artist[i].id
-          // )
-
-          // if (isAlredyExistAlbum) {
-          //   return { artists: state.artists }
-          // }
-
-          // const newData = artist.map((item) => {
-          //   item.hear = false
-          //   item.topTracks = topTracks
-          //   return item
-          // })
-
           return { artists: artData }
         })
       },
       addAlbum: (data = []) => {
         set(() => {
-          // const isAlredyExistAlbum = state.albums.some(
-          //   (item) => item?.id === data?.id
-          // )
-
-          // if (isAlredyExistAlbum) {
-          //   return { albums: state.albums }
-          // }
-
-          // const dataModified = data?.tracks?.items.map((item) => {
-          //   item.track.hear = false
-          //   return item.track
-          // })
-
-          // if (data?.tracks?.items) {
-          //   data.tracks.items = dataModified
-          //   data.hear = false
-          // }
-
-          // state.albums.push(data)
-
           return { albums: data }
         })
       },
@@ -130,11 +96,15 @@ export const useDataArtists = create(
                 return album
               }
 
+              album.tracks.items.map((track) => {
+                track.hear = false
+                return track
+              })
+
               album.hear = false
               return album
             })
 
-            console.log(newData.song)
             return {
               albums: albumsModified,
               songSelect: {
@@ -366,46 +336,6 @@ export const storeConfig = create(
         })
       },
       addSongToListCreated: (newUserPlaylistCreated) => {
-        // set((state) => {
-        //   const playlistFound = state.userPlaylistCreated.filter(
-        //     (s) => s.id === id
-        //   )
-
-        //   const isAredySongDefined = playlistFound.songs.find(
-        //     (pl) => pl.id === song.id
-        //   )
-
-        //   if (isAredySongDefined) {
-        //     const indexFound = playlistFound.songs.findIndex(
-        //       (track) => track.id === song.id
-        //     )
-
-        //     const playlistUpdated = state.userPlaylistCreated.map((pl) => {
-        //       if (pl.id === id) {
-        //         pl.songs.splice(indexFound, 1)
-        //         return pl
-        //       }
-
-        //       return pl
-        //     })
-
-        //     return { userPlaylistCreated: playlistUpdated }
-        //   }
-
-        //   const playlistUpdated = state.userPlaylistCreated.map((pl) => {
-        //     if (pl.id === id) {
-        //       pl.songs.push(song)
-        //       return pl
-        //     }
-
-        //     return pl
-        //   })
-
-        //   console.log('playlistUpdated ===>  ', playlistUpdated)
-
-        //   return { userPlaylistCreated: playlistUpdated }
-        // })
-
         set((state) => {
           const userFollows = state.userLibrary.filter(
             (item) => item.type === 'artist'

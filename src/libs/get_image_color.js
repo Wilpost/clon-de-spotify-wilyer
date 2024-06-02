@@ -12,7 +12,6 @@ export async function fetchImageColor(path) {
   })
 
   const allColors = colorsFound.map((color) => color.hex)
-  console.log(allColors)
 
   return allColors[0]
 }

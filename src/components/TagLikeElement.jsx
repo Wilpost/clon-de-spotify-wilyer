@@ -10,8 +10,6 @@ const TagLikeElement = ({ imageUrl, name, type, fixed = false, url }) => {
     <Link
       onContextMenu={(e) => {
         e.preventDefault()
-        // Aca muestro el menu desplegable con opciones para el usuario...
-        console.log(e)
       }}
       to={url}
       className={`${

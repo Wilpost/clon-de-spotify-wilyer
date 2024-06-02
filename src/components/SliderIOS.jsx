@@ -9,7 +9,7 @@ export const IOSSlider = styled(Slider)(({ theme }) => ({
   height: 4,
   padding: '15px 0',
   '&:hover': {
-    color: '#5d11c5',
+    color: '#1ed760',
     '& .MuiSlider-thumb': {
       display: 'block',
       height: 12,
