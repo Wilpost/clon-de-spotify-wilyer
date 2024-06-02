@@ -1,0 +1,49 @@
+{
+  "name": "spotify-clon",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource-variable/overpass": "^5.0.18",
+    "@fontsource/lato": "^5.0.20",
+    "@mui/material": "^5.15.4",
+    "@tanstack/react-query": "^5.29.2",
+    "axios": "^1.6.8",
+    "buffer": "^6.0.3",
+    "extract-colors": "^4.0.6",
+    "firebase": "^10.12.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router": "^6.22.1",
+    "react-router-dom": "^6.22.1",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.15",
+    "@types/react-dom": "18.2.7",
+    "@vitejs/plugin-react-swc": "3.3.2",
+    "autoprefixer": "10.4.16",
+    "eslint": "8.53.0",
+    "eslint-plugin-import": "2.29.0",
+    "eslint-plugin-n": "16.2.0",
+    "eslint-plugin-promise": "6.1.1",
+    "eslint-plugin-react": "7.33.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-refresh": "0.4.3",
+    "postcss": "8.4.31",
+    "standard": "17.1.0",
+    "tailwindcss": "3.3.5",
+    "vite": "4.5.0"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
+  }
+}
