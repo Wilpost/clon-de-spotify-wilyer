@@ -20,7 +20,7 @@ export const ButtonLikeBig = ({ song }) => {
       {existSong && (
         <button
           onClick={() => handleClick()}
-          className='opacity-60 hover:opacity-100 transition'
+          className='hover:opacity-100 transition'
         >
           <IconAddedToMyPlaylist h={26} w={26} />
         </button>

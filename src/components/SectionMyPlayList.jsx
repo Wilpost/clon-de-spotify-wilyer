@@ -85,6 +85,7 @@ export const SectionMyListPlayList = ({ loading }) => {
         <div className='w-full transition h-full flex flex-col gap-1'>
           {!loading && likeSongsList.items.length > 0 && (
             <TagLikeElement
+              hear={likeSongsList.hear}
               url='/collection/tracks'
               imageUrl='https://misc.scdn.co/liked-songs/liked-songs-64.png'
               name='Tus me gusta'
@@ -99,10 +100,13 @@ export const SectionMyListPlayList = ({ loading }) => {
             userLibrary.map((item) => {
               return (
                 <TagLikeElement
+                  hear={item?.hear}
                   key={item.id}
-                  url={`/${item.type === 'artist' ? 'artist' : 'playlist'}/${
-                    item.id
-                  }`}
+                  url={`/${
+                    (item.type === 'artist' && 'artist') ||
+                    (item.type === 'userPlaylist' && 'playlist') ||
+                    (item.type === 'playlist' && 'song')
+                  }/${item.id}`}
                   imageUrl={
                     item.type === 'artist' || item.type === 'playlist'
                       ? item?.images[0]?.url

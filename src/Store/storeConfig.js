@@ -36,13 +36,12 @@ export const useDataArtists = create(
             return { userLibrary: state.userLibrary }
           }
 
-          state.userLibrary.push(data)
+          state.userLibrary.push({ ...data, hear: false })
 
           return { userLibrary: state.userLibrary }
         })
       },
       addLikeSong: (songData) => {
-        songData.hear = false
         set((state) => {
           const isAlredyDefinedSong = state.likeSongsList.items.find(
             (track) => track.id === songData.id
@@ -62,6 +61,7 @@ export const useDataArtists = create(
             }
           }
 
+          songData.hear = false
           state.likeSongsList.items.push(songData)
 
           return {
@@ -227,6 +227,43 @@ export const useDataArtists = create(
               return artt
             })
 
+            const existInLibrary = state.userLibrary.some(
+              (lib) => lib.id === listId
+            )
+
+            if (existInLibrary) {
+              const libraryModified = state.userLibrary.map((lib) => {
+                if (lib.id === listId) {
+                  lib.hear = value
+                  return lib
+                }
+
+                lib.hear = false
+                return lib
+              })
+
+              const likeListModified = state.likeSongsList.items.map((like) => {
+                like.hear = false
+                return like
+              })
+
+              return {
+                likeSongsList: {
+                  items: likeListModified,
+                  hear: false
+                },
+                userLibrary: libraryModified,
+                artists: newDataArtists,
+                songSelect: {
+                  type_album: type,
+                  song: newData.song,
+                  beat: newData.beat,
+                  list: newData.list,
+                  albumId: listId
+                }
+              }
+            }
+
             return {
               artists: newDataArtists,
               songSelect: {
@@ -256,7 +293,31 @@ export const useDataArtists = create(
 
             newData.list = newDataLikedsSongs
 
+            const libraryModified = state.userLibrary.map((lib) => {
+              lib?.tracks?.songs?.trackList.map((track) => {
+                track.hear = false
+                return false
+              })
+
+              lib.hear = false
+              return lib
+            })
+
+            const userPlaylistCreatedModified = state.userPlaylistCreated.map(
+              (lib) => {
+                lib.songs.map((track) => {
+                  track.hear = false
+                  return false
+                })
+
+                lib.hear = false
+                return lib
+              }
+            )
+
             return {
+              userPlaylistCreated: userPlaylistCreatedModified,
+              userLibrary: libraryModified,
               likeSongsList: { hear: value, items: newDataLikedsSongs },
               songSelect: {
                 type_album: type,
@@ -298,9 +359,48 @@ export const useDataArtists = create(
               }
             )
 
-            newData.list = newDataLikedsSongs
+            const likeListModified = state.likeSongsList.items.map((like) => {
+              like.hear = false
+              return like
+            })
+
+            const existInLibrary = state.userLibrary.some(
+              (lib) => lib.id === listId
+            )
+
+            if (existInLibrary) {
+              const libraryModified = state.userLibrary.map((lib) => {
+                if (lib.id === listId) {
+                  lib.hear = value
+                  return lib
+                }
+
+                lib.hear = false
+                return lib
+              })
+
+              return {
+                likeSongsList: {
+                  items: likeListModified,
+                  hear: false
+                },
+                userLibrary: libraryModified,
+                userPlaylistCreated: newDataLikedsSongs,
+                songSelect: {
+                  type_album: type,
+                  song: newData.song,
+                  beat: newData.beat,
+                  list: newData.list,
+                  albumId: listId
+                }
+              }
+            }
 
             return {
+              likeSongsList: {
+                items: likeListModified,
+                hear: false
+              },
               userPlaylistCreated: newDataLikedsSongs,
               songSelect: {
                 type_album: type,

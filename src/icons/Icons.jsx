@@ -536,7 +536,7 @@ export const IconAddMyPlaylist = ({ w = 16, h = 16 }) => {
         role='img'
         height={h}
         width={w}
-        fill='#fff'
+        fill='#b3b3b3'
         aria-hidden='true'
         viewBox='0 0 16 16'
         className='Svg-sc-ytk21e-0 dYnaPI'

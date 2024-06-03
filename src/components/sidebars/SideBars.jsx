@@ -1,8 +1,5 @@
 import { usePlaySong } from '../../hooks/usePlaySong'
-import {
-  useSelectArtistState,
-  useSelectState
-} from '../../hooks/useSelectState'
+import { useSelectArtistState } from '../../hooks/useSelectState'
 import { IconList, IconMusicsRandom, IconOptions } from '../../icons/Icons'
 import { ButtonLikeBig } from '../buttons/ButtonLikeBig'
 import { ButtonSpotify } from '../buttons/ButtonSpotify'

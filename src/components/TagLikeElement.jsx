@@ -2,11 +2,16 @@ import { IconFixed, SongIcon } from '../icons/Icons'
 import { useSelectState } from '../hooks/useSelectState'
 import { Link, useLocation } from 'react-router-dom'
 
-const TagLikeElement = ({ imageUrl, name, type, fixed = false, url }) => {
+const TagLikeElement = ({
+  imageUrl,
+  name,
+  type,
+  fixed = false,
+  url,
+  hear = false
+}) => {
   const { pathname } = useLocation()
   const { deployNavbar } = useSelectState()
-
-  console.log(imageUrl, name)
 
   return (
     <Link
@@ -47,7 +52,13 @@ const TagLikeElement = ({ imageUrl, name, type, fixed = false, url }) => {
           deployNavbar ? 'hidden' : 'block'
         } w-full flex flex-col justify-start`}
       >
-        <h1 className='font-normal text-md'>{name}</h1>
+        <h1
+          className={`${
+            hear ? 'text-textGreenSpotify' : 'text-textWhite'
+          } font-normal text-md`}
+        >
+          {name}
+        </h1>
         <span className='text-sm mt-[1px] text-opacity-80 text-textGray w-full flex items-center gap-2'>
           {fixed && <IconFixed />}
         </span>

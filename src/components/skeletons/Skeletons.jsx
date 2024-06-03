@@ -122,7 +122,7 @@ const CardSkeleton = () => {
   return (
     <article
       className={`${
-        deployNavbar ? 'w-[206px]' : 'w-[198px]'
+        deployNavbar ? 'w-[206px]' : 'w-[186px]'
       } relative overflow-hidden group h-[272px]`}
     >
       <div className='peer z-70 w-full h-full rounded-md'>
@@ -172,7 +172,7 @@ const SectionHomeSkeleton = () => {
           </div>
         </nav>
         <section className='w-full pl-3 grid gap-2 grid-cols-gridSectionTrend'>
-          {Array(deployNavbar ? 6 : 4)
+          {Array(deployNavbar ? 6 : 5)
             .fill('')
             .map((song) => {
               return <CardSkeleton key={song.id} />
