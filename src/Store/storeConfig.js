@@ -344,9 +344,21 @@ export const useDataArtists = create(
               }
             }
 
+            const newDataAlbumsLike = albumsLike.map((albm) => {
+              const newSongs = albm.tracks.items.map((sn) => {
+                sn.hear = false
+                return sn
+              })
+
+              albm.tracks.items = newSongs
+              albm.hear = false
+              return albm
+            })
+
             return {
               userLibrary: {
                 ...state.userLibrary,
+                albumsLike: newDataAlbumsLike,
                 userFollows: followsModified,
                 userPlaylistCreated: newDataLibrary,
                 likeSongsList: {
