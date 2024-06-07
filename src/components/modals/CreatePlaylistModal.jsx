@@ -169,7 +169,7 @@ export const CreatePlaylistModal = ({ id }) => {
                   type='submit'
                   className='hover:scale-105 transition w-28 rounded-3xl py-2 bg-textComun text-[#000] font-bold'
                 >
-                  Guardar
+                  Hecho
                 </button>
               </div>
             </form>
@@ -177,9 +177,8 @@ export const CreatePlaylistModal = ({ id }) => {
 
           <div className='w-full mt-8'>
             <p className='w-full text-textWhite text-xs font-extrabold'>
-              Al continuar, aceptas darle acceso a Spotify Clon a la imagen que
-              decidas subir. Asegúrate de tener los derechos para subir la
-              imagen.
+              Puedes publicar cualquier imagen sin preocuparte por tener los
+              derechos de la imagen.
             </p>
           </div>
         </div>
