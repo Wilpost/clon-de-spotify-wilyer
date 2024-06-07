@@ -1,24 +1,9 @@
-import { useRef } from 'react'
-import { useLikeSongsFunctions } from '../../hooks/useLikeSongsFunctions'
-import {
-  useSelectArtistState,
-  useSelectState
-} from '../../hooks/useSelectState'
+import { useButtonLike } from '../../hooks/useButtonLike'
 import { IconAddMyPlaylist, IconAddedToMyPlaylist } from '../../icons/Icons'
 
-export const ButtonLikeMedium = ({ song }) => {
-  const { addLikeSong, likeSongsList } = useSelectArtistState()
-  const { setViewModals, viewModals } = useSelectState()
-  const { existSong } = useLikeSongsFunctions(likeSongsList, song)
-  const buttonElement = useRef(null)
-
-  const handleClick = () => {
-    addLikeSong(song)
-  }
-
-  const clickViewModal = () => {
-    setViewModals({ addSongToList: !viewModals.addSongToList })
-  }
+export const ButtonLikeMedium = ({ song, table = false }) => {
+  const { existSong, handleClick, buttonElement, clickViewModal } =
+    useButtonLike(song, table)
 
   return (
     <>
@@ -35,7 +20,9 @@ export const ButtonLikeMedium = ({ song }) => {
         <button
           className='w-9 h-9'
           ref={buttonElement}
-          onClick={() => clickViewModal()}
+          onClick={() => {
+            clickViewModal()
+          }}
         >
           <IconAddedToMyPlaylist />
         </button>

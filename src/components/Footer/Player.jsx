@@ -25,7 +25,7 @@ export const Footer = () => {
   const { audioControl, duration, setDuration } = usePlaySong()
   const { songSelect } = useSelectArtistState()
   const { shangeSongHear } = useFooterShanges(audioRef)
-  const { playSong, handleTime } = usePlayerActions(audioRef)
+  const { playSong, handleTime } = usePlayerActions({ audioRef })
 
   useEffect(() => {
     audioRef.current.volume = audioState / 100

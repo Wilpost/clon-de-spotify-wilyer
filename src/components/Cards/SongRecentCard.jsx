@@ -4,18 +4,17 @@ import {
   useSelectArtistState,
   useSelectState
 } from '../../hooks/useSelectState'
-import { IconPause, IconPlay } from '../../icons/Icons'
+import { IconPause, IconPlay, SongIcon } from '../../icons/Icons'
 
 export const CardSongRecent = ({ song }) => {
-  const { likeSongsList, albums } = useSelectArtistState()
+  const { albums, userLibrary, artists } = useSelectArtistState()
   const { audioControl } = usePlaySong()
   const { setBackdropColor, deployNavbar } = useSelectState()
+  const { likeSongsList, userPlaylistCreated } = userLibrary
 
   const handleHover = () => {
-    setBackdropColor(song.data.primary_color)
+    setBackdropColor(song.data?.primary_color ?? song.primary_color)
   }
-
-  // '/collection/tracks'
 
   return (
     <div
@@ -26,33 +25,53 @@ export const CardSongRecent = ({ song }) => {
       <Link
         className='h-full'
         to={`${
-          song.type === 'myPlaylist'
-            ? '/collection/tracks'
-            : `${song.type === 'artist' ? 'artist' : 'song'}/${song.data?.id}`
+          (song.type === 'myPlaylist' && '/collection/tracks') ||
+          (song.type === 'userPlaylist' && `/playlist/${song.data.id}`) ||
+          `${song.type === 'artist' ? 'artist' : 'song'}/${song.data?.id}`
         }`}
       >
         <article
           onMouseMove={() => handleHover()}
-          // onMouseOut={() => handleOutHover()}
           className='h-full shadow-3xl hover:bg-[#9c9c9c5e] bg-bgCardRecent flex items-center bg-opacity-10 hover:cursor-pointer overflow-hidden rounded-[4px] min-w-[200px] w-full'
         >
           <div className='w-full h-full flex gap-3 z-60 items-center justify-around'>
             <div className='flex items-center h-full gap-2 w-full'>
               <picture className={`w-14 shadow-rigth h-20`}>
-                <img
-                  className={`${
-                    deployNavbar ? 'object-cover' : 'object-contain'
-                  } w-full h-full`}
-                  src={
-                    song.albumId === 'likedPlaylist'
-                      ? 'public/images/liked-song-image-big.png'
-                      : song.data.images[0].url
-                  }
-                  alt='Flyer from the album'
-                />
+                {song.type !== 'userPlaylist' && (
+                  <img
+                    className={`${
+                      deployNavbar ? 'object-cover' : 'object-contain'
+                    } w-full h-full`}
+                    src={
+                      song.albumId === 'likedPlaylist'
+                        ? 'public/images/liked-song-image-big.png'
+                        : song.data.images[0].url || song.data.image
+                    }
+                    alt='Flyer from the album'
+                  />
+                )}
+
+                {song.type === 'userPlaylist' && !song.data.image && (
+                  <figure className='w-full h-full rounded-md bg-secondaryDark grid place-content-center'>
+                    <SongIcon />
+                  </figure>
+                )}
+
+                {song.type === 'userPlaylist' && song.data.image && (
+                  <img
+                    className={`${
+                      deployNavbar ? 'object-cover' : 'object-contain'
+                    } w-full h-full`}
+                    src={song.data.image}
+                    alt='Flyer from the album'
+                  />
+                )}
               </picture>
+
               <div className='flex items-center'>
-                <strong className='font-bold text-sm'>{song.data?.name}</strong>
+                <strong className='font-bold text-sm'>
+                  {song.data?.title ?? song.data?.name}
+                </strong>
               </div>
             </div>
 
@@ -74,13 +93,23 @@ export const CardSongRecent = ({ song }) => {
         <button
           onClick={() =>
             audioControl({
-              albumId: song?.albumId,
-              type: song.type,
+              albumId:
+                song.type === 'myPlaylist'
+                  ? 'likedPlaylist'
+                  : song.data?.id ?? song.id,
+              type:
+                song.type === 'userPlaylist' ? 'myPlaylistCreated' : song.type,
               list:
                 (song?.type === 'myPlaylist' && likeSongsList.items) ||
                 (song?.type === 'artist' && song.data?.trackList) ||
-                (song?.type === 'album' && song.data?.tracks?.items),
-              albums: song?.albumId === 'likedPlaylist' ? albums : likeSongsList
+                (song?.type === 'album' && song.data?.tracks?.items) ||
+                (song?.type === 'playlist' && song.data?.tracks?.items) ||
+                (song?.type === 'userPlaylist' && song.data?.songs),
+              albums:
+                (song?.type === 'myPlaylist' && likeSongsList.items) ||
+                (song?.type === 'album' && albums) ||
+                (song?.type === 'userPlaylist' && userPlaylistCreated) ||
+                (song?.type === 'artist' && artists)
             })
           }
           className='bg-textGreenSpotify z-70 scale-105 hover:scale-110 active:scale-95 p-3 w-[33px] h-[33px] grid place-content-center rounded-full'

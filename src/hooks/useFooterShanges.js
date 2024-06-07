@@ -3,7 +3,7 @@ import { useSelectArtistState } from './useSelectState'
 
 export const useFooterShanges = () => {
   const { audioControl } = usePlaySong()
-  const { songSelect } = useSelectArtistState()
+  const { songSelect, userLibrary, albums, artists } = useSelectArtistState()
 
   const shangeSongHear = (action) => {
     const index = songSelect.list.findIndex(
@@ -17,8 +17,15 @@ export const useFooterShanges = () => {
         audioControl({
           albumId: songSelect?.albumId,
           song: songFound,
-          list: songFound.list,
-          type: songSelect?.type_album
+          list: songSelect.list,
+          type: songSelect?.type_album,
+          albums:
+            (songSelect?.type_album === 'myPlaylist' &&
+              userLibrary.likeSongsList.items) ||
+            (songSelect?.type_album === 'album' && albums) ||
+            (songSelect?.type_album === 'artist' && artists) ||
+            (songSelect?.type_album === 'myPlaylistCreated' &&
+              userLibrary.userPlaylistCreated)
         })
       }
     }
@@ -30,8 +37,15 @@ export const useFooterShanges = () => {
         audioControl({
           albumId: songSelect?.albumId,
           song: songFound,
-          list: songFound.list,
-          type: songSelect?.type_album
+          list: songSelect.list,
+          type: songSelect?.type_album,
+          albums:
+            (songSelect?.type_album === 'myPlaylist' &&
+              userLibrary.likeSongsList.items) ||
+            (songSelect?.type_album === 'album' && albums) ||
+            (songSelect?.type_album === 'artist' && artists) ||
+            (songSelect?.type_album === 'myPlaylistCreated' &&
+              userLibrary.userPlaylistCreated)
         })
       }
     }

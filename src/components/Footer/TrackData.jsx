@@ -4,9 +4,9 @@ import {
   useSelectArtistState,
   useSelectState
 } from '../../hooks/useSelectState'
-import { ContextMenuOptions } from '../modals/CreatePlaylistModal'
 import { SongIcon } from '../../icons/Icons'
 import { ButtonLikeMedium } from '../buttons/ButtonLikeMedium'
+import { ContextMenuOptions } from '../modals/ContextMenu'
 
 export const InfoReproSong = () => {
   const { songSelect } = useSelectArtistState()
@@ -21,6 +21,10 @@ export const InfoReproSong = () => {
     <div className='max-w-[291px] w-full flex gap-5 items-center'>
       {viewModals.addSongToList && (
         <ContextMenuOptions song={songSelect.song} />
+      )}
+
+      {viewModals.addSongToList && viewModals.table && (
+        <ContextMenuOptions song={viewModals.song} />
       )}
 
       {songSelect?.song?.name && (

@@ -16,6 +16,10 @@ export const useSelectState = () => {
   const setViewModals = storeConfig((state) => state.setViewModals)
   const viewModals = storeConfig((state) => state.viewModals)
 
+  const updateHearDataSongRecent = storeConfig(
+    (state) => state.updateHearDataSongRecent
+  )
+
   const scroll = storeConfig((state) => state.scroll)
   const setScroll = storeConfig((state) => state.setScroll)
 
@@ -35,6 +39,7 @@ export const useSelectState = () => {
   const setDeployNavbar = storeConfig((state) => state.setDeployNavbar)
 
   return {
+    updateHearDataSongRecent,
     newSongHearRecent,
     deployNavbar,
     recentHeardSongs,

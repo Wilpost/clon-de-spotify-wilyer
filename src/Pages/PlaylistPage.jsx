@@ -10,27 +10,33 @@ import { useEffect, useState } from 'react'
 export const PlaylistPage = () => {
   const { pathname } = useLocation()
   const { viewModals, setViewModals, setBackdropColor } = useSelectState()
-  const { userPlaylistCreated, updatePlaylistCreated } = useSelectArtistState()
+  const { updatePlaylistCreated, userLibrary } = useSelectArtistState()
+  const { userPlaylistCreated } = userLibrary
+
   const [color, setColor] = useState('')
 
   const { id } = useParams()
 
   const songFound = userPlaylistCreated.find((playlist) => playlist.id === id)
 
+  async function extractColorController() {
+    const hex = await fetchImageColor(songFound.songs[0].album.images[0].url)
+    setColor(hex)
+
+    updatePlaylistCreated(songFound.id, {
+      title: songFound.title,
+      image: songFound.songs[0].album.images[0].url,
+      hear: songFound.hear,
+      primary_color: hex
+    })
+  }
+
   useEffect(() => {
     if (
       (!songFound?.image && songFound.songs[0]) ||
       (songFound?.image && songFound.songs[0])
     ) {
-      updatePlaylistCreated(songFound.id, {
-        title: songFound.title,
-        image: songFound.songs[0].album.images[0].url,
-        hear: songFound.hear
-      })
-      // songFound.image = songFound.songs[0].album.images[0].url
-      fetchImageColor(songFound.songs[0].album.images[0].url).then((hex) =>
-        setColor(hex)
-      )
+      extractColorController()
     } else if (songFound.songs.length === 0) {
       setColor('')
     } else {
@@ -120,7 +126,11 @@ export const PlaylistPage = () => {
           likeOption={false}
           disabled={songFound?.songs?.length === 0}
         />
-        <TableListSongs album={songFound.songs} albumId={songFound.id} />
+        <TableListSongs
+          album={songFound.songs}
+          albumId={songFound.id}
+          albums={userPlaylistCreated}
+        />
       </div>
       {viewModals.createPlaylist && <CreatePlaylistModal id={id} />}
     </>

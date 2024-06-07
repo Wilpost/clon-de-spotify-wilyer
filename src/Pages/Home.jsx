@@ -1,17 +1,14 @@
-import { Suspense, lazy } from 'react'
-
-const ListPlaylist = lazy(() => import('../components/ListsPlaylist'))
-const SectionInfoTrends = lazy(() => import('../components/SectionInfoTrends'))
+import ListPlaylist from '../components/ListsPlaylist'
+import SectionInfoTrends from '../components/SectionInfoTrends'
 
 import { useSelectArtistState, useSelectState } from '../hooks/useSelectState'
-import { SectionHomeSkeleton } from '../components/skeletons/Skeletons'
 
 const Home = () => {
   const { albums, artists } = useSelectArtistState()
   const { backdropColor, deployNavbar, recentHeardSongs } = useSelectState()
 
   return (
-    <Suspense fallback={<SectionHomeSkeleton />}>
+    <>
       <div
         style={{
           background: backdropColor
@@ -55,7 +52,7 @@ const Home = () => {
           />
         )}
       </section>
-    </Suspense>
+    </>
   )
 }
 

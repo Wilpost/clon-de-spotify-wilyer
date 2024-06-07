@@ -7,9 +7,9 @@ import { Paths } from './Routing/roots'
 import { useFetchSongData } from './hooks/useFetchQuery'
 import { useSelectArtistState, useSelectState } from './hooks/useSelectState'
 import { SectionHomeSkeleton } from './components/skeletons/Skeletons'
-import { NotificationBanner } from './components/modals/CreatePlaylistModal'
 import { Footer } from './components/Footer/Player'
 import { useAppHooks } from './hooks/useApp_Functions_Hooks'
+import { NotificationBanner } from './components/modals/NotificationModal'
 
 const App = () => {
   const mainSerctionRef = useRef()

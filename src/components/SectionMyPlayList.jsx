@@ -12,8 +12,13 @@ import { LikeListSkeleton } from './skeletons/Skeletons'
 
 export const SectionMyListPlayList = ({ loading }) => {
   const { deployNavbar, setDeployNavbar } = useSelectState()
-  const { likeSongsList, addNewPlaylistCreated, userLibrary } =
-    useSelectArtistState()
+  const { addNewPlaylistCreated, userLibrary } = useSelectArtistState()
+
+  const joinLibrary = [
+    ...userLibrary.userFollows,
+    ...userLibrary.userPlaylistCreated,
+    ...userLibrary.albumsLike
+  ]
 
   return (
     <article className='group w-full rounded-lg bg-groundColor flex flex-col gap-2 p-2 h-full '>
@@ -83,38 +88,41 @@ export const SectionMyListPlayList = ({ loading }) => {
         } user-playlist w-full overflow-hidden relative transition hover:overflow-y-auto flex flex-col gap-2`}
       >
         <div className='w-full transition h-full flex flex-col gap-1'>
-          {!loading && likeSongsList.items.length > 0 && (
-            <TagLikeElement
-              hear={likeSongsList.hear}
-              url='/collection/tracks'
-              imageUrl='https://misc.scdn.co/liked-songs/liked-songs-64.png'
-              name='Tus me gusta'
-              type='playlist'
-            />
-          )}
-
           {loading && <LikeListSkeleton />}
 
+          {userLibrary.likeSongsList.items.length > 0 &&
+            userLibrary.likeSongsList.items.length > 0 && (
+              <TagLikeElement
+                hear={userLibrary.likeSongsList.hear}
+                url='/collection/tracks'
+                imageUrl='https://misc.scdn.co/liked-songs/liked-songs-64.png'
+                name='Tus me gusta'
+                type='playlist'
+              />
+            )}
+
           {!loading &&
-            userLibrary.length > 0 &&
-            userLibrary.map((item) => {
+            joinLibrary.length > 0 &&
+            joinLibrary.map((item) => {
               return (
-                <TagLikeElement
-                  hear={item?.hear}
-                  key={item.id}
-                  url={`/${
-                    (item.type === 'artist' && 'artist') ||
-                    (item.type === 'userPlaylist' && 'playlist') ||
-                    (item.type === 'playlist' && 'song')
-                  }/${item.id}`}
-                  imageUrl={
-                    item.type === 'artist' || item.type === 'playlist'
-                      ? item?.images[0]?.url
-                      : item.image
-                  }
-                  name={item.name ?? item.title}
-                  type={item.type}
-                />
+                <>
+                  <TagLikeElement
+                    hear={item?.hear}
+                    key={item.id}
+                    url={`/${
+                      (item.type === 'artist' && 'artist') ||
+                      (item.type === 'userPlaylist' && 'playlist') ||
+                      (item.type === 'playlist' && 'song')
+                    }/${item.id}`}
+                    imageUrl={
+                      (item.type === 'userPlaylist' && item.image) ||
+                      (item.type === 'artist' && item.images[0].url) ||
+                      (item.type === 'playlist' && item?.images[0]?.url)
+                    }
+                    name={item.name ?? item.title}
+                    type={item.type}
+                  />
+                </>
               )
             })}
         </div>

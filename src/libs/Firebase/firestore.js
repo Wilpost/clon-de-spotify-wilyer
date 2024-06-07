@@ -96,16 +96,20 @@ export async function getAllAlbumsRecommended() {
 
 export async function addDataToCollection({
   recentHeartSongs = [],
-  userLibrary = [],
-  userPlaylistsCreated = [],
-  userLikeSongs = []
+  userLibrary = {
+    likeSongsList: {
+      items: [],
+      hear: false
+    },
+    userPlaylistCreated: [],
+    userFollows: [],
+    albumsLike: []
+  }
 }) {
   try {
     await addDoc(collection(db, 'data_user_collection'), {
       recentHeartSongs,
-      userLibrary,
-      userPlaylistsCreated,
-      userLikeSongs
+      userLibrary
     })
   } catch (error) {
     console.error(error)

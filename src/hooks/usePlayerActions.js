@@ -1,9 +1,22 @@
 import { useFooterShanges } from './useFooterShanges'
-import { useSelectState } from './useSelectState'
+import { usePlaySong } from './usePlaySong'
+import { useSelectArtistState, useSelectState } from './useSelectState'
 
-export function usePlayerActions(audioRef) {
+export function usePlayerActions({ audioRef = null, song = {} }) {
   const { songState, setCurrentTime, setSongState } = useSelectState()
   const { shangeSongHear } = useFooterShanges(audioRef)
+
+  const { artists } = useSelectArtistState()
+  const { audioControl } = usePlaySong()
+
+  const handleClick = async () => {
+    audioControl({
+      type: 'artist',
+      albumId: song?.data?.id ?? song?.id,
+      list: song?.data?.trackList ?? song?.trackList,
+      albums: artists
+    })
+  }
 
   const handleTime = (e) => {
     const currentTimeParser = Math.floor(parseInt(e.target.currentTime) % 60)
@@ -11,7 +24,6 @@ export function usePlayerActions(audioRef) {
     setCurrentTime(parseInt(e.target.currentTime))
 
     if (currentTimeParser === 29) {
-      // e.target.currentTime = 0
       setSongState(true)
       shangeSongHear('NEXT')
     }
@@ -24,5 +36,5 @@ export function usePlayerActions(audioRef) {
       await audioRef.current.pause()
     }
   }
-  return { playSong, handleTime }
+  return { playSong, handleTime, handleClick }
 }

@@ -5,7 +5,7 @@ import { TableListSongs } from '../components/Table'
 import { SideBarSong } from '../components/sidebars/SideBars'
 
 const MyPlaylistPage = () => {
-  const { likeSongsList } = useSelectArtistState()
+  const { userLibrary } = useSelectArtistState()
   const { setBackdropColor } = useSelectState()
 
   useEffect(() => {
@@ -27,23 +27,24 @@ const MyPlaylistPage = () => {
       <Header
         title='Tus me gusta'
         image='https://misc.scdn.co/liked-songs/liked-songs-300.png'
-        playlist={likeSongsList.items}
+        playlist={userLibrary.likeSongsList.items}
         type='Album'
       />
 
       <section className='w-full bg-groundColor bg-opacity-30'>
         <SideBarSong
           likeOption={false}
-          dataSong={likeSongsList}
+          dataSong={userLibrary.likeSongsList}
           type='myPlaylist'
           albumId='likedPlaylist'
-          list={likeSongsList.items}
+          list={userLibrary.likeSongsList.items}
           options={false}
-          albums={likeSongsList.items}
+          albums={userLibrary.likeSongsList.items}
         />
         <TableListSongs
           type='myPlaylist'
-          album={likeSongsList.items}
+          albums={userLibrary.likeSongsList.items}
+          album={userLibrary.likeSongsList.items}
           albumId='likedList'
         />
       </section>

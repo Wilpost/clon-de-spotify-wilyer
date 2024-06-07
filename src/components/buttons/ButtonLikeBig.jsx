@@ -8,7 +8,7 @@ export const ButtonLikeBig = ({ song }) => {
   const { setScroll, scroll } = useSelectState()
   const { userLibrary, addToLibrary } = useSelectArtistState()
 
-  const existSong = userLibrary.some((item) => item.id === song.id)
+  const existSong = userLibrary.albumsLike.some((item) => item.id === song.id)
 
   const handleClick = () => {
     setScroll(scroll - 1)

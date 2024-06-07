@@ -52,7 +52,9 @@ export const SideBarSong = ({
 export const SideBararArtists = ({ artist, onClick, follow }) => {
   const { userLibrary } = useSelectArtistState()
 
-  const existInLibrary = userLibrary.find((item) => item.id === artist.id)
+  const existInLibrary = userLibrary.userFollows.find(
+    (item) => item.id === artist.id
+  )
 
   return (
     <aside className='flex items-center -mt-9 justify-between w-full z-50 h-16 p-6 '>

@@ -12,9 +12,7 @@ export const usePlaySong = () => {
 
   const { songSelect, playPauseBar } = useSelectArtistState()
 
-  // Cada elemento que tenga la posibilidad de reproducir musica debe enviar el typo de playlist/album/artist-playlist
   const audioControl = ({ albumId, song = null, list = [], type, albums }) => {
-    // Si es la primera vez que se reproduce un album/playlist/artist-playlist...
     if (
       songSelect.albumId !== albumId ||
       (songSelect.albumId !== albumId && songSelect.song?.id !== song?.id)

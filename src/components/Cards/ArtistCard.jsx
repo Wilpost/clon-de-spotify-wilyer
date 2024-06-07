@@ -1,24 +1,11 @@
 import { Link } from 'react-router-dom'
-import { usePlaySong } from '../../hooks/usePlaySong'
-import {
-  useSelectArtistState,
-  useSelectState
-} from '../../hooks/useSelectState'
+import { useSelectState } from '../../hooks/useSelectState'
 import { ButtonSpotify } from '../buttons/ButtonSpotify'
+import { usePlayerActions } from '../../hooks/usePlayerActions'
 
 export const CardArtist = ({ song }) => {
-  const { artists } = useSelectArtistState()
   const { deployNavbar } = useSelectState()
-  const { audioControl } = usePlaySong()
-
-  const handleClick = async () => {
-    audioControl({
-      type: 'artist',
-      albumId: song?.data?.id ?? song?.id,
-      list: song?.data?.trackList ?? song?.trackList,
-      albums: artists
-    })
-  }
+  const { handleClick } = usePlayerActions({ song })
 
   return (
     <article

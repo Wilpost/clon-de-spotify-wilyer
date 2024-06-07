@@ -2,78 +2,75 @@ import axios from 'axios'
 import { URL_API, getToken } from '../scripts/script'
 import artistData from '../../public/data_artists_dcnl.json'
 import { getAllArtistsData } from '../libs/Firebase/firestore'
+import { fetchImageColor } from '../libs/get_image_color'
 const token = window.localStorage.getItem('access_Token')
 
 export const getArtists = async (id) => {
-  const { data: art } = await axios
-    .get(`${URL_API}/artists/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .catch(async (err) => {
-      if (err.request.status === 401) {
-        const acces = await getToken()
+  const requestFireStoreData = await getAllArtistsData()
 
-        const { data: art } = await axios.get(`${URL_API}/artists/${id}`, {
-          headers: {
-            Authorization: `Bearer ${acces}`
-          }
-        })
+  if (requestFireStoreData.length === 0) {
+    const { data } = await axios
+      .get(`${URL_API}/artists/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((res) => res)
+      .catch(async (err) => {
+        if (err.request.status === 401) {
+          const acces = await getToken()
 
-        return art
-      }
-    })
+          const response = await axios.get(`${URL_API}/artists/${id}`, {
+            headers: {
+              Authorization: `Bearer ${acces}`
+            }
+          })
 
-  const artistFound = artistData.find(
-    (data) => data.name.toLocaleLowerCase() === art.name.toLocaleLowerCase()
-  )
+          return response.data
+        }
+      })
 
-  art.backdrop_image = artistFound.backdrop_image
+    const artistFound = artistData.find(
+      (art) => art.name.toLocaleLowerCase() === data.name.toLocaleLowerCase()
+    )
 
-  const trackList = await getArtistTopTracks(art.id)
-  art.trackList = trackList
+    data.backdrop_image = artistFound.backdrop_image
+    data.primary_color = await fetchImageColor(artistFound.backdrop_image)
 
-  return art
+    const trackList = await getArtistTopTracks(data.id)
+    data.trackList = trackList
 
-  // const artistsList = art.map((artist) => {
-
-  //   return {
-  //     ...artist,
-  //   }
-  // })
-
-  // const artAll = await Promise.all(
-  //   artistsList.map(async (art) => {
-  //     art.trackList = trackList
-  //     return art
-  //   })
-  // )
+    return data
+  }
 }
 
 export const getArtistTopTracks = async (artId) => {
   const requestFireStoreData = await getAllArtistsData()
 
-  try {
-    if (requestFireStoreData.length === 0) {
-      const res = await axios.get(`${URL_API}/artists/${artId}/top-tracks`, {
+  if (requestFireStoreData.length === 0) {
+    let res
+    res = await axios
+      .get(`${URL_API}/artists/${artId}/top-tracks`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
-
-      const artistTopTracksModified = res.data.tracks.map((track) => {
-        track.hear = false
-        return track
+      .catch(async (error) => {
+        if (error.request.status === 401) {
+          const access = await getToken()
+          res = await axios.get(`${URL_API}/artists/${artId}/top-tracks`, {
+            headers: {
+              Authorization: `Bearer ${access}`
+            }
+          })
+        }
       })
 
-      return artistTopTracksModified
-    }
-  } catch (error) {
-    if (error.request.status === 401) {
-      getToken()
-    }
+    const artistTopTracksModified = res.data.tracks.map((track) => {
+      track.hear = false
+      return track
+    })
 
-    console.error(error)
+    return artistTopTracksModified
   }
 }

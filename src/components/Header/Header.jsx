@@ -37,12 +37,6 @@ const Header = ({
         <div className='w-full flex flex-col gap-2 item-center'>
           <span className='w-full flex flex-col gap-2 items-start text-textGray'>
             <strong className='font-normal text-textGray text-sm mt-1'>
-              {/* {artists?.map((artist, i) => {
-                if (artists[i + 1] === undefined) {
-                  return artist
-                }
-                return `${artist}, `
-              })} */}
               {artists}
             </strong>{' '}
             <span className='text-textWhite'>

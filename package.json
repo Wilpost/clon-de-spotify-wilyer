@@ -15,7 +15,6 @@
     "@fontsource-variable/overpass": "^5.0.18",
     "@fontsource/lato": "^5.0.20",
     "@mui/material": "^5.15.4",
-    "@tanstack/react-query": "^5.29.2",
     "axios": "^1.6.8",
     "buffer": "^6.0.3",
     "extract-colors": "^4.0.6",

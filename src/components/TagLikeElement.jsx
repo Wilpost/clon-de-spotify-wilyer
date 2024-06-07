@@ -1,4 +1,4 @@
-import { IconFixed, SongIcon } from '../icons/Icons'
+import { CompleteVolumeGreen, IconFixed, SongIcon } from '../icons/Icons'
 import { useSelectState } from '../hooks/useSelectState'
 import { Link, useLocation } from 'react-router-dom'
 
@@ -23,7 +23,7 @@ const TagLikeElement = ({
         pathname === url
           ? 'bg-textGray bg-opacity-5 hover:bg-opacity-[0.2]'
           : ''
-      } p-1 animate-fadeOutIn cursor-pointer hover:bg-textGray hover:bg-opacity-5 hover:rounded-md w-full flex gap-3`}
+      } p-1 animate-fadeOutIn relative cursor-pointer hover:bg-textGray hover:bg-opacity-5 hover:rounded-md w-full flex gap-3`}
     >
       {imageUrl && (
         <picture
@@ -47,6 +47,18 @@ const TagLikeElement = ({
         </picture>
       )}
 
+      {hear && (
+        <figure
+          className={`${
+            deployNavbar
+              ? 'top-0 w-full left-0 h-full bg-slate-900 bg-opacity-40 grid place-content-center'
+              : 'top-[35%]'
+          } absolute right-4`}
+        >
+          <CompleteVolumeGreen />
+        </figure>
+      )}
+
       <div
         className={`${
           deployNavbar ? 'hidden' : 'block'
@@ -55,7 +67,7 @@ const TagLikeElement = ({
         <h1
           className={`${
             hear ? 'text-textGreenSpotify' : 'text-textWhite'
-          } font-normal text-md`}
+          } font-normal text-mdjustify-between`}
         >
           {name}
         </h1>

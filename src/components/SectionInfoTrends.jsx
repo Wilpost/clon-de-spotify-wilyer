@@ -35,7 +35,7 @@ const SectionInfoTrends = ({ title, list = [], typeCard = '' }) => {
           })}
 
         {typeCard === '' &&
-          list?.slice(0, deployNavbar ? 6 : 4).map((song) => {
+          list?.slice(0, deployNavbar ? 6 : 5).map((song) => {
             return song.type === 'artist' ? (
               <CardArtist song={song} key={song?.id} />
             ) : (
