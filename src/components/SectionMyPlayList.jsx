@@ -95,7 +95,7 @@ export const SectionMyListPlayList = ({ loading }) => {
               <TagLikeElement
                 hear={userLibrary.likeSongsList.hear}
                 url='/collection/tracks'
-                imageUrl='https://misc.scdn.co/liked-songs/liked-songs-64.png'
+                imageUrl='https://i.ibb.co/r25Lhg2/liked-song-image-big-1.png'
                 name='Tus me gusta'
                 type='playlist'
               />

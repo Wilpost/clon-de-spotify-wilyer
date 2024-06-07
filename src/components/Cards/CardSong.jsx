@@ -37,7 +37,7 @@ export const CardPlaylists = ({ song }) => {
                   className='object-contain rounded-[5px]'
                   src={
                     song?.albumId === 'likedPlaylist'
-                      ? 'public/images/liked-song-image-big.png'
+                      ? 'https://i.ibb.co/r25Lhg2/liked-song-image-big-1.png'
                       : song.data?.image ||
                         song.data?.images[0].url ||
                         song.images[0].url
@@ -57,7 +57,7 @@ export const CardPlaylists = ({ song }) => {
                   className='object-contain rounded-[5px]'
                   src={
                     song?.albumId === 'likedPlaylist'
-                      ? 'public/images/liked-song-image-big.png'
+                      ? 'https://i.ibb.co/r25Lhg2/liked-song-image-big-1.png'
                       : song.data?.image ||
                         song.data?.images[0].url ||
                         song.images[0].url
@@ -130,7 +130,7 @@ export const CardPlaylists = ({ song }) => {
                 (song?.type === 'userPlaylist' && userPlaylistCreated)
             })
           }}
-          song={song.data ?? song}
+          song={(song?.type === 'myPlaylist' && song) || song.data || song}
         />
       </div>
     </article>

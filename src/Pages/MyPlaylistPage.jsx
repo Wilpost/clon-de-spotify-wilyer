@@ -26,7 +26,7 @@ const MyPlaylistPage = () => {
 
       <Header
         title='Tus me gusta'
-        image='https://misc.scdn.co/liked-songs/liked-songs-300.png'
+        image='https://i.ibb.co/r25Lhg2/liked-song-image-big-1.png'
         playlist={userLibrary.likeSongsList.items}
         type='Album'
       />

@@ -85,7 +85,7 @@ export const ContextMenuOptions = ({ song }) => {
           <picture className='w-[47px] h-8 flex items-center'>
             <img
               className='rounded-sm'
-              src='	https://misc.scdn.co/liked-songs/liked-songs-300.png'
+              src='https://i.ibb.co/r25Lhg2/liked-song-image-big-1.png'
               alt='Image playlist'
             />
           </picture>

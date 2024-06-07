@@ -44,7 +44,7 @@ export const CardSongRecent = ({ song }) => {
                     } w-full h-full`}
                     src={
                       song.albumId === 'likedPlaylist'
-                        ? 'public/images/liked-song-image-big.png'
+                        ? 'https://i.ibb.co/r25Lhg2/liked-song-image-big-1.png'
                         : song.data.images[0].url || song.data.image
                     }
                     alt='Flyer from the album'
