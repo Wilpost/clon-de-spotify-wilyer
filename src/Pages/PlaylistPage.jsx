@@ -88,7 +88,7 @@ export const PlaylistPage = () => {
             <span className='text-md -mb-5'>Playlist</span>
             <h1
               onClick={() => setViewModals({ createPlaylist: true })}
-              className='text-[100px] h-full flex cursor-pointer leading-[95px] w-full font-extrabold -ml-1'
+              className='text-[95px] h-full flex cursor-pointer leading-[95px] w-full font-extrabold -ml-1'
             >
               {songFound?.title?.length > 20
                 ? songFound?.title?.slice(0, 20) + '...'
@@ -98,7 +98,7 @@ export const PlaylistPage = () => {
           </div>
 
           <div className='w-full flex flex-col gap-2 item-center'>
-            <strong className='font-normal text-[#c1c1c1] text-sm mt-1'>
+            <strong className='font-normal h-2 mb-2 text-[#c1c1c1] text-sm mt-1'>
               {songFound?.description}
             </strong>
             <span className='w-full flex gap-1 items-center text-textGray'>

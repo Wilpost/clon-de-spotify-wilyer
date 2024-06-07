@@ -146,7 +146,8 @@ export const useDataArtists = create(
             id,
             ...data,
             songs: state.userLibrary.userPlaylistCreated[indexPlaylist].songs,
-            type: 'userPlaylist'
+            type: 'userPlaylist',
+            hear: state.userLibrary.userPlaylistCreated[indexPlaylist].hear
           }
 
           beforePlaylist.splice(indexPlaylist, 1, playlistUpdate)
