@@ -45,7 +45,7 @@ const MyPlaylistPage = () => {
           type='myPlaylist'
           albums={userLibrary.likeSongsList.items}
           album={userLibrary.likeSongsList.items}
-          albumId='likedList'
+          albumId='likedPlaylist'
         />
       </section>
     </div>

@@ -20,12 +20,14 @@ export const PlaylistPage = () => {
   const songFound = userPlaylistCreated.find((playlist) => playlist.id === id)
 
   async function extractColorController() {
-    const hex = await fetchImageColor(songFound.songs[0].album.images[0].url)
+    const hex = await fetchImageColor(
+      songFound.image || songFound.songs[0].album.images[0].url
+    )
     setColor(hex)
 
     updatePlaylistCreated(songFound.id, {
       title: songFound.title,
-      image: songFound.songs[0].album.images[0].url,
+      image: songFound.image || songFound.songs[0].album.images[0].url,
       hear: songFound.hear,
       primary_color: hex
     })
@@ -51,7 +53,7 @@ export const PlaylistPage = () => {
       <div
         style={{
           background: `linear-gradient(0deg, rgba(18, 18, 18, 0) 31%, ${
-            color === '' ? '#2d2c2cd1' : color
+            color === '' || !songFound?.image ? '#2d2c2cd1' : color
           } 95%)`
         }}
         className='w-full animate-fadeIn transition-background z-0 absolute top-0 h-[839px] opacity-75'
@@ -67,6 +69,7 @@ export const PlaylistPage = () => {
           </figure>
         )}
 
+        {/* 
         {!songFound?.image && songFound.songs[0] && (
           <figure className='max-w-80 w-72 h-50'>
             <img
@@ -75,9 +78,9 @@ export const PlaylistPage = () => {
               alt='Backdrop of song or playlist'
             />
           </figure>
-        )}
+        )} */}
 
-        {!songFound?.image && !songFound.songs[0] && (
+        {!songFound?.image && (
           <figure className='w-72 shadow-arrowGround grid place-content-center h-full bg-opacity-60 max-w-80 rounded-md bg-groundColor'>
             <SongIcon w={90} h={90} />
           </figure>

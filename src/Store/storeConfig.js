@@ -142,12 +142,12 @@ export const useDataArtists = create(
 
           const beforePlaylist = state.userLibrary.userPlaylistCreated
 
+          console.log()
+
           const playlistUpdate = {
             id,
-            ...data,
-            songs: state.userLibrary.userPlaylistCreated[indexPlaylist].songs,
-            type: 'userPlaylist',
-            hear: state.userLibrary.userPlaylistCreated[indexPlaylist].hear
+            ...state.userLibrary.userPlaylistCreated[indexPlaylist],
+            ...data
           }
 
           beforePlaylist.splice(indexPlaylist, 1, playlistUpdate)
@@ -233,6 +233,36 @@ export const useDataArtists = create(
               userFollows
             } = state.userLibrary
 
+            const existInLibrary = albumsLike.find((lib) => lib.id === listId)
+
+            const modifiedLikeList = likeSongsList.items.map((lk) => {
+              lk.hear = false
+              return lk
+            })
+            state.userLibrary.likeSongsList.hear = false
+
+            const followsModified = userFollows.map((lib) => {
+              const newTrackList = lib.trackList.map((tr) => {
+                tr.hear = false
+                return tr
+              })
+
+              lib.trackList = newTrackList
+              lib.hear = false
+              return lib
+            })
+
+            const newDataLibrary = userPlaylistCreated.map((lib) => {
+              const newSongs = lib.songs.map((sn) => {
+                sn.hear = false
+                return sn
+              })
+
+              lib.songs = newSongs
+              lib.hear = false
+              return lib
+            })
+
             const albumsModified = state.albums.map((album) => {
               // Modifico el album encontrado y lo devuelvo
               if (album?.id === listId) {
@@ -263,36 +293,6 @@ export const useDataArtists = create(
 
               album.hear = false
               return album
-            })
-
-            const existInLibrary = albumsLike.find((lib) => lib.id === listId)
-
-            const modifiedLikeList = likeSongsList.items.map((lk) => {
-              lk.hear = false
-              return lk
-            })
-            state.userLibrary.likeSongsList.hear = false
-
-            const followsModified = userFollows.map((lib) => {
-              const newTrackList = lib.trackList.map((tr) => {
-                tr.hear = false
-                return tr
-              })
-
-              lib.trackList = newTrackList
-              lib.hear = false
-              return lib
-            })
-
-            const newDataLibrary = userPlaylistCreated.map((lib) => {
-              const newSongs = lib.songs.map((sn) => {
-                sn.hear = false
-                return sn
-              })
-
-              lib.songs = newSongs
-              lib.hear = false
-              return lib
             })
 
             if (existInLibrary) {
@@ -728,7 +728,8 @@ export const storeConfig = create(
         table: false,
         addSongToList: false,
         notification: false,
-        song: null
+        song: null,
+        editImage: false
       },
       scroll: 0,
       deployNavbar: false,

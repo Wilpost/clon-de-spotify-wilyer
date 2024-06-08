@@ -103,12 +103,12 @@ export const SectionMyListPlayList = ({ loading }) => {
 
           {!loading &&
             joinLibrary.length > 0 &&
-            joinLibrary.map((item) => {
+            joinLibrary.map((item, index) => {
               return (
                 <>
                   <TagLikeElement
                     hear={item?.hear}
-                    key={item.id}
+                    key={index}
                     url={`/${
                       (item.type === 'artist' && 'artist') ||
                       (item.type === 'userPlaylist' && 'playlist') ||

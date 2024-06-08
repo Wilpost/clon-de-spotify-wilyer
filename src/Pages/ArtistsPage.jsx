@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { AritstHeader } from '../components/Header/Header'
 import { SideBararArtists } from '../components/sidebars/SideBars'
-import { IconAddedToMyPlaylist, IconPause, IconPlay } from '../icons/Icons'
 import { usePlaySong } from '../hooks/usePlaySong'
 import { useArtistFunciton } from '../hooks/useArtistFunctions'
 import { useSelectArtistState, useSelectState } from '../hooks/useSelectState'

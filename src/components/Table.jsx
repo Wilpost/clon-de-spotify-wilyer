@@ -61,7 +61,7 @@ export const TableListSongs = ({
 
             return (
               <div
-                key={song?.id}
+                key={index}
                 className='group h-14 hover:bg-tempBarColor transition hover:bg-opacity-50 rounded-md flex w-full justify-between items-center px-4'
               >
                 <div className='flex group items-center'>

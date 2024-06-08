@@ -56,6 +56,7 @@ export const SongPage = () => {
         />
         <TableListSongs
           type='album'
+          albums={albums}
           album={findSong?.tracks.items}
           albumId={findSong?.id}
         />

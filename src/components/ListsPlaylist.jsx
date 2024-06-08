@@ -7,8 +7,8 @@ const ListPlaylist = () => {
   return (
     <>
       {recentHeardSongs?.length > 0 &&
-        recentHeardSongs?.slice(0, 8).map((song) => {
-          return <CardSongRecent key={song.id} song={song} />
+        recentHeardSongs?.slice(0, 8).map((song, index) => {
+          return <CardSongRecent key={index} song={song} />
         })}
     </>
   )

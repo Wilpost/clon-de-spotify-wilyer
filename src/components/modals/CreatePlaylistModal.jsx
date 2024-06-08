@@ -1,3 +1,4 @@
+import { RiDeleteBin7Line } from 'react-icons/ri'
 import { useRef, useState } from 'react'
 import {
   useSelectArtistState,
@@ -6,8 +7,35 @@ import {
 import { CloseIcon, EditIcon, SongIcon } from '../../icons/Icons'
 import { Input } from '../inputs/Input'
 
+export const OptionImageModal = ({ id, fn, imagePlaylist }) => {
+  const { updatePlaylistCreated } = useSelectArtistState()
+  const { setViewModals } = useSelectState()
+
+  const deleteImage = () => {
+    imagePlaylist.current = null
+    fn(null)
+    updatePlaylistCreated(id, { image: null })
+    setViewModals({ editImage: false })
+  }
+
+  return (
+    <>
+      <article className='absolute top-28 left-44 h-12 w-44 overflow-hidden z-[99999] flex flex-col gap-2 items-center bg-[#292929] bottom-[70px] rounded-[4px] p-1'>
+        <div
+          onClick={() => deleteImage()}
+          className='cursor-pointer w-full h-full items-center p-3 rounded-sm hover:bg-cardGroundSkeleton hover:bg-opacity-40 flex gap-2'
+        >
+          <RiDeleteBin7Line color='#999' size={20} />
+          <span className='text-sm text-textWhite'>Eliminar imagen</span>
+        </div>
+      </article>
+    </>
+  )
+}
+
 export const CreatePlaylistModal = ({ id }) => {
-  const { setViewModals, updateHearDataSongRecent } = useSelectState()
+  const { setViewModals, viewModals, updateHearDataSongRecent } =
+    useSelectState()
   const { updatePlaylistCreated, userLibrary } = useSelectArtistState()
   const { userPlaylistCreated } = userLibrary
   const {
@@ -57,6 +85,10 @@ export const CreatePlaylistModal = ({ id }) => {
     reader.readAsDataURL(file)
   }
 
+  const modalImage = () => {
+    setViewModals({ editImage: !viewModals.editImage })
+  }
+
   const dialogRef = useRef(null)
 
   const handleClick = () => {
@@ -76,6 +108,14 @@ export const CreatePlaylistModal = ({ id }) => {
       </figure>
 
       <div className='w-[500px] peer-active:animate-FadeReverse animate-fadeOut h-96 rounded-lg p-5 py-6 bg-groundDark text-textComun'>
+        {viewModals.editImage && (
+          <OptionImageModal
+            fn={setUrlImage}
+            imagePlaylist={imagePlaylist}
+            id={id}
+          />
+        )}
+
         <div className='w-full h-full justify-center flex flex-col gap-2'>
           <div className='w-full flex items-center justify-between'>
             <h1 className='font-extrabold text-[22px]'>Editar datos</h1>
@@ -84,7 +124,7 @@ export const CreatePlaylistModal = ({ id }) => {
           <div className='flex w-full h-full items-center gap-3 justify-between'>
             <div className='group h-full mb-6 w-[40%] flex items-center justify-center'>
               <figure className='relative overflow-hidden w-[200px] h-[180px] bg-secondaryDark rounded-md flex items-center justify-center shadow-4xl'>
-                {!image && !imagePlaylist.current?.src && !urlImage && (
+                {!imagePlaylist.current?.src && !urlImage && (
                   <div className='group-hover:hidden block opacity-60'>
                     <SongIcon w={60} h={60} />
                   </div>
@@ -112,7 +152,10 @@ export const CreatePlaylistModal = ({ id }) => {
                   htmlFor='photo'
                   className='group-hover:flex absolute z-[8888] bg-groundColor w-full h-full bg-opacity-80 hidden flex-col gap-1 items-center justify-center'
                 >
-                  <button className='absolute top-2 right-2 bg-groundColor bg-opacity-60 rounded-full w-9 h-9 font-bold flex items-center justify-center'>
+                  <button
+                    onClick={() => modalImage()}
+                    className='absolute top-2 right-2 bg-[#292929] bg-opacity-60 rounded-full w-9 h-9 font-bold flex items-center justify-center'
+                  >
                     <span className='text-textGray mb-2 text-md'>. . .</span>
                   </button>
                   <EditIcon w={60} h={60} />
