@@ -47,7 +47,7 @@ export const CardArtist = ({ song }) => {
       </Link>
       <div
         className={`${
-          song?.hear
+          song?.data?.hear || song?.hear
             ? 'visible opacity-100 translate-y-[-10px]'
             : 'invisible opacity-0'
         } right-[20px] peer top-[160px] z-40 hover:translate-y-[-10px] hover:visible hover:opacity-100 transition-translate duration-300 peer-hover:translate-y-[-10px] peer-hover:opacity-100 peer-hover:visible flex absolute justify-end items-center`}

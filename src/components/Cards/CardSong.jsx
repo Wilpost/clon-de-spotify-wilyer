@@ -38,7 +38,7 @@ export const CardPlaylists = ({ song }) => {
                   src={
                     song?.albumId === 'likedPlaylist'
                       ? 'https://i.ibb.co/r25Lhg2/liked-song-image-big-1.png'
-                      : song.data?.image ||
+                      : song.image ||
                         song.data?.images[0].url ||
                         song.images[0].url
                   }

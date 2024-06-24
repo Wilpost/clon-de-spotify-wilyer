@@ -45,7 +45,9 @@ export const CardSongRecent = ({ song }) => {
                     src={
                       song.albumId === 'likedPlaylist'
                         ? 'https://i.ibb.co/r25Lhg2/liked-song-image-big-1.png'
-                        : song.data.images[0].url || song.data.image
+                        : song.image ||
+                          song.data.images[0].url ||
+                          song.data.image
                     }
                     alt='Flyer from the album'
                   />
@@ -77,7 +79,7 @@ export const CardSongRecent = ({ song }) => {
 
             <figure
               className={`${
-                song?.hear ? 'visible' : 'invisible'
+                song.data.hear || song.hear ? 'visible' : 'invisible'
               } w-5 mr-4 group-hover:invisible group-hover:opacity-0 visible opacity-100`}
             >
               <img
@@ -114,8 +116,19 @@ export const CardSongRecent = ({ song }) => {
           }
           className='bg-textGreenSpotify z-70 scale-105 hover:scale-110 active:scale-95 p-3 w-[33px] h-[33px] grid place-content-center rounded-full'
         >
-          {song?.hear && <IconPause w={15} h={15} />}
-          {!song?.hear && <IconPlay w={15} h={15} />}
+          {song.type !== 'myPlaylist' && song.data.hear && (
+            <IconPause w={15} h={15} />
+          )}
+          {song.type !== 'myPlaylist' && !song.data.hear && (
+            <IconPlay w={15} h={15} />
+          )}
+
+          {song.type === 'myPlaylist' && song.hear && (
+            <IconPause w={15} h={15} />
+          )}
+          {song.type === 'myPlaylist' && !song.hear && (
+            <IconPlay w={15} h={15} />
+          )}
         </button>
       </div>
     </div>

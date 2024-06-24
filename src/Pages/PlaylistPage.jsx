@@ -69,17 +69,6 @@ export const PlaylistPage = () => {
           </figure>
         )}
 
-        {/* 
-        {!songFound?.image && songFound.songs[0] && (
-          <figure className='max-w-80 w-72 h-50'>
-            <img
-              className='object-cover rounded-md shadow-4xl'
-              src={songFound.image}
-              alt='Backdrop of song or playlist'
-            />
-          </figure>
-        )} */}
-
         {!songFound?.image && (
           <figure className='w-72 shadow-arrowGround grid place-content-center h-full bg-opacity-60 max-w-80 rounded-md bg-groundColor'>
             <SongIcon w={90} h={90} />

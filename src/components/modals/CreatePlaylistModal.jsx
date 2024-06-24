@@ -100,14 +100,7 @@ export const CreatePlaylistModal = ({ id }) => {
       ref={dialogRef}
       className='z-[99999] animate-fadeIn top-0 grid place-content-center bg-opacity-60 fixed bg-arrowGround w-full h-full'
     >
-      <figure
-        onClick={handleClick}
-        className='peer hover:bg-tempBarColor animate-fadeOut absolute top-[169px] z-[77777] left-[890px] cursor-pointer rounded-full p-2 hover:bg-opacity-40 transition'
-      >
-        <CloseIcon />
-      </figure>
-
-      <div className='w-[500px] peer-active:animate-FadeReverse animate-fadeOut h-96 rounded-lg p-5 py-6 bg-groundDark text-textComun'>
+      <div className='w-[500px] relative peer-active:animate-FadeReverse animate-fadeOut h-96 rounded-lg p-5 py-6 bg-groundDark text-textComun'>
         {viewModals.editImage && (
           <OptionImageModal
             fn={setUrlImage}
@@ -115,6 +108,13 @@ export const CreatePlaylistModal = ({ id }) => {
             id={id}
           />
         )}
+
+        <figure
+          onClick={handleClick}
+          className='peer hover:bg-tempBarColor animate-fadeOut absolute z-[77777] right-2 top-2 cursor-pointer rounded-full p-2 hover:bg-opacity-40 transition'
+        >
+          <CloseIcon />
+        </figure>
 
         <div className='w-full h-full justify-center flex flex-col gap-2'>
           <div className='w-full flex items-center justify-between'>

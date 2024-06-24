@@ -41,7 +41,7 @@ export const InfoReproSong = () => {
         </figure>
       )}
 
-      <div className='w-full flex flex-col gap-1 relative overflow-hidden'>
+      <div className='w-full max-w-20 flex flex-col gap-1 relative overflow-hidden'>
         {songSelect?.song?.name?.length > 45 && animate && (
           <div className='w-3 h-[18px] -left-2 absolute bg-arrowGround z-[88888] blur-sm' />
         )}
@@ -76,7 +76,9 @@ export const InfoReproSong = () => {
         </span>
       </div>
 
-      {songSelect?.song?.name && <ButtonLikeMedium song={songSelect.song} />}
+      <div className='max-w-5'>
+        {songSelect?.song?.name && <ButtonLikeMedium song={songSelect.song} />}
+      </div>
     </div>
   )
 }

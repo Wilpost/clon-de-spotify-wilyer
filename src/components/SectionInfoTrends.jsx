@@ -25,21 +25,21 @@ const SectionInfoTrends = ({ title, list = [], typeCard = '' }) => {
       </nav>
       <section className='w-full flex'>
         {typeCard === 'card' &&
-          list?.slice(0, deployNavbar ? 6 : 5).map((song, index) => {
-            return <CardPlaylists song={song} key={index} />
+          list?.slice(0, deployNavbar ? 6 : 5).map((song) => {
+            return <CardPlaylists song={song} key={song.id} />
           })}
 
         {typeCard === 'artist' &&
-          list?.slice(0, deployNavbar ? 6 : 5).map((song, index) => {
-            return <CardArtist song={song} key={index} />
+          list?.slice(0, deployNavbar ? 6 : 5).map((song) => {
+            return <CardArtist song={song} key={song.id} />
           })}
 
         {typeCard === '' &&
-          list?.slice(0, deployNavbar ? 6 : 5).map((song, index) => {
+          list?.slice(0, deployNavbar ? 6 : 5).map((song) => {
             return song.type === 'artist' ? (
-              <CardArtist song={song} key={index} />
+              <CardArtist song={song} key={song.id} />
             ) : (
-              <CardPlaylists song={song} key={index} />
+              <CardPlaylists song={song} key={song.id} />
             )
           })}
       </section>

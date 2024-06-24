@@ -142,8 +142,6 @@ export const useDataArtists = create(
 
           const beforePlaylist = state.userLibrary.userPlaylistCreated
 
-          console.log()
-
           const playlistUpdate = {
             id,
             ...state.userLibrary.userPlaylistCreated[indexPlaylist],
@@ -747,17 +745,23 @@ export const storeConfig = create(
             (item) => item.albumId === id
           )
 
-          const beforePlaylist = state.recentHeardSongs
+          if (trackFound) {
+            const beforePlaylist = state.recentHeardSongs
 
-          const playlistUpdate = {
-            ...trackFound,
-            ...data
+            const playlistUpdate = {
+              ...trackFound,
+              ...data
+            }
+
+            beforePlaylist.splice(indexPlaylist, 1, playlistUpdate)
+
+            return {
+              recentHeardSongs: beforePlaylist
+            }
           }
 
-          beforePlaylist.splice(indexPlaylist, 1, playlistUpdate)
-
           return {
-            recentHeardSongs: beforePlaylist
+            recentHeardSongs: state.recentHeardSongs
           }
         })
       },
@@ -765,10 +769,12 @@ export const storeConfig = create(
         set((state) => {
           const modifiedData = state.recentHeardSongs.map((item) => {
             if (item.albumId === id && item.albumId !== 'likedPlaylist') {
-              item.hear = value
-              if (item.data?.hear) {
+              if (typeof item.data.hear === 'boolean') {
                 item.data.hear = value
+              } else {
+                item.hear = value
               }
+
               return item
             }
 
@@ -784,24 +790,26 @@ export const storeConfig = create(
               return item
             }
 
-            item.hear = false
-            item.data.hear = false
+            typeof item.data.hear === 'boolean'
+              ? (item.data.hear = false)
+              : (item.hear = false)
 
             return item
           })
 
+          console.log('')
           return { recentHeardSongs: modifiedData }
         })
       },
       newSongHearRecent: (albumId, albums) => {
         set((state) => {
-          const isNewData = state.recentHeardSongs.find((item) => {
+          const notIsNewData = state.recentHeardSongs.find((item) => {
             return item.albumId === albumId
           })
 
           const data = albums.find((album) => album.id === albumId)
 
-          if (isNewData) {
+          if (notIsNewData) {
             const indexDataFound = state.recentHeardSongs.findIndex(
               (sn) => sn.albumId === albumId
             )
@@ -820,7 +828,7 @@ export const storeConfig = create(
                 (data?.type === 'artist' && 'artist') ||
                 (data?.type === 'userPlaylist' && 'userPlaylist') ||
                 (albumId === 'likedPlaylist' && 'myPlaylist'),
-              primary_color: '#6039ee'
+              primary_color: notIsNewData?.primary_color
             }
 
             state.recentHeardSongs.splice(indexDataFound, 1, newData)
@@ -843,16 +851,19 @@ export const storeConfig = create(
             return { recentHeardSongs: state.recentHeardSongs }
           }
 
-          state.recentHeardSongs.push({
-            data,
-            albumId,
-            type:
-              (data?.type === 'playlist' && 'album') ||
-              (data?.type === 'artist' && 'artist') ||
-              (data?.type === 'userPlaylist' && 'userPlaylist')
-          })
+          if (albumId) {
+            state.recentHeardSongs.push({
+              data,
+              albumId,
+              type:
+                (data?.type === 'playlist' && 'album') ||
+                (data?.type === 'artist' && 'artist') ||
+                (data?.type === 'userPlaylist' && 'userPlaylist'),
+              primary_color: data?.primary_color
+            })
 
-          return { recentHeardSongs: state.recentHeardSongs }
+            return { recentHeardSongs: state.recentHeardSongs }
+          }
         })
       },
       setViewModals: (newData) => {

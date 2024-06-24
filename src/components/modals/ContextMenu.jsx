@@ -105,7 +105,7 @@ export const ContextMenuOptions = ({ song }) => {
         </div>
 
         {newStatePlaylist.length > 0 &&
-          newStatePlaylist.map((option, index) => {
+          newStatePlaylist.map((option) => {
             let optionSaved = opt.current.find((item) => item.id === option.id)
 
             const shangeList = () => {
@@ -154,7 +154,7 @@ export const ContextMenuOptions = ({ song }) => {
             return (
               <>
                 <div
-                  key={index}
+                  key={option.id}
                   className='hover:bg-cardGround rounded-[4px] p-[6px] cursor-pointer flex items-center gap-2'
                 >
                   {option.image !== null && (

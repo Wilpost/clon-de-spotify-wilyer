@@ -18,7 +18,6 @@ export const ButtonLikeMedium = ({ song, table = false }) => {
 
       {existSong && (
         <button
-          className='w-9 h-9'
           ref={buttonElement}
           onClick={() => {
             clickViewModal()
