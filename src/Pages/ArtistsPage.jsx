@@ -43,14 +43,14 @@ const ArtistPage = () => {
       <SideBararArtists
         artist={artist}
         follow={() => handleFollowClick()}
-        onClick={() =>
+        onClick={() => {
           audioControl({
             albumId: artistId,
             type: 'artist',
             list: artist.trackList,
             albums: artists
           })
-        }
+        }}
       />
       <div className='flex flex-col gap-4 w-full mt-7 px-6 py-2'>
         <h2 className='font-extrabold text-2xl'>Popular</h2>
