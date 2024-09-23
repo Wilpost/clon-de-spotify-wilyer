@@ -99,6 +99,39 @@ body {
   animation-fill-mode: backwards;
   animation-iteration-count: infinite;
 }
+/* 
+.header_navbar {
+  animation-name: showScrollNavbar;
+  animation-fill-mode: both;
+
+  animation-timeline: scroll(root);
+  animation-range: 0px 10px;
+} */
+
+.mainSection {
+  position: relative;
+  height: 100%;
+  scroll-timeline: --squareTimeline vertical;
+  scroll-timeline: --squareTimeline y;
+}
+
+.navbar_header {
+  animation-name: showScrollNavbar;
+  animation-duration: 1ms;
+  animation-fill-mode: both;
+
+  animation-timeline: --squareTimeline;
+  animation-range: 0px 100px;
+}
+
+@keyframes showScrollNavbar {
+  from {
+    background: transparent;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 @keyframes loadPage {
   0% {

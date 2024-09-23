@@ -29,10 +29,12 @@ export const Footer = () => {
 
   useEffect(() => {
     audioRef.current.volume = audioState / 100
-  }, [])
+  }, [audioState])
 
   useEffect(() => {
-    playSong()
+    if (songSelect) {
+      playSong()
+    }
   }, [songState, songSelect])
 
   useEffect(() => {

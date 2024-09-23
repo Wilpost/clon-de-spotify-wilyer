@@ -12,22 +12,15 @@ export const TableListSongs = ({
 }) => {
   const { audioControl } = usePlaySong()
   const { songSelect } = useSelectArtistState()
-  const { scroll, songState } = useSelectState()
+  const { songState } = useSelectState()
 
   return (
     <section className='w-full h-full -mt-3'>
       {infoBar && (
         <div
-          style={{
-            background: scroll > 352 ? '#1a1a1a' : 'transparent',
-            zIndex: 99999
-          }}
           className={`
-         sticky p-4 top-0 text-textGray transition w-full flex flex-col py-1
-         ${
-           scroll > 352 ? 'border-b-[1px] border-b-tempBarColor' : 'border-none'
-         }
-        `}
+            sticky p-4 top-0 border-b-[1px] border-b-tempBarColor bg-[#1a1a1a80] text-textGray transition w-full flex flex-col py-2
+         `}
         >
           <div className='w-full text-sm text-opacity-70 pl-5 flex  grid-cols-tableGrid items-center'>
             <div className='w-8'>#</div>
@@ -35,10 +28,6 @@ export const TableListSongs = ({
             <div className='w-[369px]'>Álbum</div>
             <div className=''>Duration</div>
           </div>
-
-          {scroll < 352 && (
-            <div className='w-[98%] mt-2 ml-2 h-[1px] bg-tempBarColor bg-opacity-60' />
-          )}
         </div>
       )}
 

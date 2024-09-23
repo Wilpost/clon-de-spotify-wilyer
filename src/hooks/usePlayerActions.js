@@ -1,6 +1,8 @@
+import { useCallback } from 'react'
 import { useFooterShanges } from './useFooterShanges'
 import { usePlaySong } from './usePlaySong'
 import { useSelectArtistState, useSelectState } from './useSelectState'
+import { useMemo } from 'react'
 
 export function usePlayerActions({ audioRef = null, song = {} }) {
   const { songState, setCurrentTime, setSongState } = useSelectState()
@@ -9,32 +11,39 @@ export function usePlayerActions({ audioRef = null, song = {} }) {
   const { artists } = useSelectArtistState()
   const { audioControl } = usePlaySong()
 
-  const handleClick = async () => {
+  const handleClick = useCallback(() => {
     audioControl({
       type: 'artist',
       albumId: song?.data?.id ?? song?.id,
       list: song?.data?.trackList ?? song?.trackList,
       albums: artists
     })
-  }
+  }, [song, artists])
 
-  const handleTime = (e) => {
-    const currentTimeParser = Math.floor(parseInt(e.target.currentTime) % 60)
+  const handleTime = useMemo(() => {
+    return (e) => {
+      const currentTimeParser = Math.floor(parseInt(e.target.currentTime) % 60)
 
-    setCurrentTime(parseInt(e.target.currentTime))
+      setCurrentTime(parseInt(e.target.currentTime))
 
-    if (currentTimeParser === 29) {
-      setSongState(true)
-      shangeSongHear('NEXT')
+      if (currentTimeParser === 29) {
+        setSongState(true)
+        shangeSongHear('NEXT')
+      }
     }
-  }
+  }, [])
 
-  const playSong = async () => {
+  const playSongMemo = async () => {
     if (songState) {
       await audioRef.current.play()
     } else {
       await audioRef.current.pause()
     }
   }
+
+  const playSong = useCallback(() => {
+    playSongMemo()
+  }, [songState])
+
   return { playSong, handleTime, handleClick }
 }

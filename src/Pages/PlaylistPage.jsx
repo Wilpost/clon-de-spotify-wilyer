@@ -58,6 +58,7 @@ export const PlaylistPage = () => {
         }}
         className='w-full animate-fadeIn transition-background z-0 absolute top-0 h-[839px] opacity-75'
       />
+
       <section className='w-full h-[270px] items-end flex gap-7 p-5 relative overflow-hidden'>
         {songFound?.image && (
           <figure className='max-w-80 w-72 h-50'>

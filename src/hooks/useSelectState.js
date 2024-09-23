@@ -20,9 +20,6 @@ export const useSelectState = () => {
     (state) => state.updateHearDataSongRecent
   )
 
-  const scroll = storeConfig((state) => state.scroll)
-  const setScroll = storeConfig((state) => state.setScroll)
-
   const favList = storeConfig((state) => state.favList)
   const setFavList = storeConfig((state) => state.setFavList)
 
@@ -54,8 +51,6 @@ export const useSelectState = () => {
     hearSongsList,
     setBackdropColor,
     backdropColor,
-    scroll,
-    setScroll,
     addSongToList,
     currentTime,
     setCurrentTime,

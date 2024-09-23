@@ -729,7 +729,6 @@ export const storeConfig = create(
         song: null,
         editImage: false
       },
-      scroll: 0,
       deployNavbar: false,
       currentSection: null,
       songState: false,
@@ -797,7 +796,6 @@ export const storeConfig = create(
             return item
           })
 
-          console.log('')
           return { recentHeardSongs: modifiedData }
         })
       },
@@ -886,7 +884,6 @@ export const storeConfig = create(
       setBackdropColor: (color) => {
         set({ backdropColor: color })
       },
-      setScroll: (value) => set({ scroll: value }),
       setDuration: (value) => set({ duration: value }),
       setCurrentTime: (value) => set({ currentTime: value })
     }),
@@ -895,7 +892,7 @@ export const storeConfig = create(
       partialize: (state) =>
         Object.fromEntries(
           Object.entries(state).filter(
-            ([key]) => !['songState', 'viewModals', 'scroll'].includes(key)
+            ([key]) => !['songState', 'viewModals'].includes(key)
           )
         )
     }

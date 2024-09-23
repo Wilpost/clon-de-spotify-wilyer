@@ -4,26 +4,27 @@ import { SideBararArtists } from '../components/sidebars/SideBars'
 import { usePlaySong } from '../hooks/usePlaySong'
 import { useArtistFunciton } from '../hooks/useArtistFunctions'
 import { useSelectArtistState, useSelectState } from '../hooks/useSelectState'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { TableListSongs } from '../components/Table'
 
 const ArtistPage = () => {
   const { artistId } = useParams()
-  const { scroll, setScroll, setBackdropColor, backdropColor } =
-    useSelectState()
+  const { setBackdropColor, backdropColor } = useSelectState()
   const { artists, addToLibrary } = useSelectArtistState()
   const { audioControl } = usePlaySong()
 
   const { artist } = useArtistFunciton(artistId)
 
-  const handleFollowClick = () => {
-    setScroll(scroll - 1)
+  const followClick = () => {
     addToLibrary(artist, 'artist')
   }
 
+  const handleFollowClick = useMemo(() => {
+    followClick()
+  }, [artist])
+
   useEffect(() => {
     setBackdropColor(artist.primary_color)
-    setScroll(0)
   }, [])
 
   return (

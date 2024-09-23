@@ -11,21 +11,9 @@ import {
 export const useFetchSongData = (mainSerctionRef) => {
   const location = useLocation()
   const [isFetching, setIsFecthing] = useState(true)
-  const { setBackdropColor, scroll, setScroll } = useSelectState()
+  const { setBackdropColor } = useSelectState()
   const { addArtistToList, songSelect, artists, albums } =
     useSelectArtistState()
-
-  useEffect(() => {
-    const updateScroll = (e) => {
-      setScroll(e.target.scrollTop)
-    }
-
-    mainSerctionRef.current.addEventListener('scroll', updateScroll)
-
-    return () => {
-      window.removeEventListener('scroll', updateScroll)
-    }
-  }, [scroll, mainSerctionRef, setScroll])
 
   useEffect(() => {
     mainSerctionRef.current.scrollTop = 0
@@ -47,7 +35,7 @@ export const useFetchSongData = (mainSerctionRef) => {
       '2LRoIwlKmHjgvigdNGBHNo'
     ]
 
-    if (artists.length === 0) {
+    if (artists?.length === 0) {
       artistsIds.map(async (artId) => {
         const artDataRequest = await getArtists(artId)
         addArtistToCollection({ artist: artDataRequest })
@@ -72,6 +60,7 @@ export const useFetchSongData = (mainSerctionRef) => {
         abumsIds.map(async (abm) => {
           try {
             const res = await getAlbumsRecommended(abm)
+
             addAlbumToAlbumCollection({ album: res })
 
             return res

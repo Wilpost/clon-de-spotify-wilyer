@@ -1,17 +1,12 @@
-import {
-  useSelectArtistState,
-  useSelectState
-} from '../../hooks/useSelectState'
+import { useSelectArtistState } from '../../hooks/useSelectState'
 import { IconAddMyPlaylist, IconAddedToMyPlaylist } from '../../icons/Icons'
 
 export const ButtonLikeBig = ({ song }) => {
-  const { setScroll, scroll } = useSelectState()
   const { userLibrary, addToLibrary } = useSelectArtistState()
 
   const existSong = userLibrary.albumsLike.some((item) => item.id === song.id)
 
   const handleClick = () => {
-    setScroll(scroll - 1)
     addToLibrary(song)
   }
 

@@ -7,7 +7,7 @@ import {
 } from '../icons/Icons'
 
 export const HeaderListPlaylist = () => {
-  const { backdropColor, scroll, deployNavbar } = useSelectState()
+  const { backdropColor, deployNavbar } = useSelectState()
 
   const handleButtonBack = () => {
     window.history.back()
@@ -20,12 +20,12 @@ export const HeaderListPlaylist = () => {
   return (
     <header
       style={{
-        background: scroll > 187 ? backdropColor : 'transparent',
+        background: backdropColor,
         zIndex: 99999
       }}
       className={`${
         deployNavbar ? 'w-[1273px] left-[85px]' : 'w-[992px] left-[366px]'
-      } transition duration-500 fixed rounded-t-md h-[59px] top-[7px] pr-8 flex flex-col p-4`}
+      } navbar_header fixed top-[9px] rounded-t-md h-[59px] pr-8 flex flex-col p-4`}
     >
       <div className='w-full h-full flex justify-between items-start'>
         <div className='w-full flex gap-2 h-1'>

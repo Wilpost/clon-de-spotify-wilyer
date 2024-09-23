@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useSelectArtistState } from './useSelectState'
 import {
   getAllAlbumsRecommended,
@@ -9,7 +9,7 @@ export function useAppHooks() {
   const [loading, setLoading] = useState(false)
   const { addAlbum, addArtistToList } = useSelectArtistState()
 
-  async function fetchDataRequest() {
+  const fetchFunctionRequest = async () => {
     try {
       setLoading(true)
       const artists2 = await getAllArtistsData()
@@ -23,6 +23,10 @@ export function useAppHooks() {
       setLoading(false)
     }
   }
+
+  const fetchDataRequest = useCallback(() => {
+    fetchFunctionRequest()
+  }, [loading])
 
   return { fetchDataRequest, loading }
 }

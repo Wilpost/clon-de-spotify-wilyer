@@ -2,7 +2,7 @@ import './index.css'
 import { Navbar } from './components/Navbar'
 import { HeaderListPlaylist } from './components/HeaderListPlaylis'
 import { SectionMyListPlayList } from './components/SectionMyPlayList'
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { Paths } from './Routing/roots'
 import { useFetchSongData } from './hooks/useFetchQuery'
 import { useSelectArtistState, useSelectState } from './hooks/useSelectState'
@@ -26,10 +26,13 @@ const App = () => {
 
   useFetchSongData(mainSerctionRef)
   const asideRef = useRef()
+  const setBackCol = useMemo(() => {
+    setBackdropColor(songSelect.color)
+  }, [songSelect.color])
 
   useEffect(() => {
     if (songSelect.color !== '') {
-      setBackdropColor(songSelect.color)
+      setBackCol
     }
   }, [])
 
@@ -47,19 +50,17 @@ const App = () => {
           <div className='w-[1px] group-hover:bg-tempBarColor h-full transition' />
         </div>
       </aside>
-
       <section
         ref={mainSerctionRef}
-        className='pt-14 mainSection flex flex-col bg-groundColor gap-4 w-full h-full main-content overflow-hidden [grid-area:main] relative rounded-lg overflow-y-auto transition z-50'
+        className='pt-14 mainSection flex flex-col bg-groundColor gap-4 w-full h-full main-content overflow-x-hidden [grid-area:main] relative rounded-lg overflow-y-auto z-50'
       >
-        <div className='z-50'>
-          <HeaderListPlaylist />
+        <HeaderListPlaylist />
 
+        <div className='z-50'>
           {loading && <SectionHomeSkeleton />}
           {!loading && <Paths />}
         </div>
       </section>
-
       <footer className='[grid-area:footer] h-24'>
         {viewModals.notification && <NotificationBanner />}
         <Footer />
