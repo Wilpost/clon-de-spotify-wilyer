@@ -4,7 +4,7 @@ import { SideBararArtists } from '../components/sidebars/SideBars'
 import { usePlaySong } from '../hooks/usePlaySong'
 import { useArtistFunciton } from '../hooks/useArtistFunctions'
 import { useSelectArtistState, useSelectState } from '../hooks/useSelectState'
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { TableListSongs } from '../components/Table'
 
 const ArtistPage = () => {
@@ -19,9 +19,9 @@ const ArtistPage = () => {
     addToLibrary(artist, 'artist')
   }
 
-  const handleFollowClick = useMemo(() => {
+  const handleFollowClick = () => {
     followClick()
-  }, [artist])
+  }
 
   useEffect(() => {
     setBackdropColor(artist.primary_color)
@@ -55,9 +55,6 @@ const ArtistPage = () => {
       <div className='flex flex-col gap-4 w-full mt-7 px-6 py-2'>
         <h2 className='font-extrabold text-2xl'>Popular</h2>
         <div className='w-full px-1 py-3 flex flex-col items-center gap-2 -mt-2 h-full'>
-          {/* {artist.trackList.length > 0 &&
-            artist.trackList?.slice(0, 5).map((song, index) => { */}
-          {/* return ( */}
           <TableListSongs
             albumId={artistId}
             type='artist'
@@ -65,8 +62,6 @@ const ArtistPage = () => {
             albums={artists}
             infoBar={false}
           />
-          {/* ) */}
-          {/* })} */}
 
           {artist.trackList.length === 0 && (
             <h3 className='text-textGray w-full text-center text-lg'>
